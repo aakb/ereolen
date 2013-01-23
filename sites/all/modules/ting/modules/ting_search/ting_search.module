@@ -231,7 +231,7 @@ function ting_search_form(&$form_state) {
  * Process a search form submission.
  */
 function ting_search_form_submit($form, &$form_state) {
-  $form_state['redirect'] = 'ting/search/' . trim($form_state['values']['keys']);
+  $form_state['redirect'] = 'ting/search/"' . trim($form_state['values']['keys']) . '"';
 }
 
 /**

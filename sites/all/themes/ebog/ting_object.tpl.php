@@ -133,7 +133,7 @@ if (module_exists('ding_voxb')) {
           <?php } ?>
           <?php if (!empty($object->record['dc:contributor']['oss:dkind'])) { ?>
             <?php foreach($object->record['dc:contributor']['oss:dkind'] as $reader): ?>
-              <?php $readers[] = l($reader,'ting/search/'.$reader); ?>
+              <?php $readers[] = l($reader,'ting/search/"' . $reader . '"'); ?>
             <?php endforeach;?>
             <?php print theme('item_list', $readers, t('Reader'), 'span', array('class' => 'contributor'));?>
           <?php } ?>
