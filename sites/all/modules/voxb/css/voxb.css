@@ -24,6 +24,12 @@
 
 #edit-rating, .ajax_anim, #voxbItem {
   display: none;
+  float:left;
+}
+
+#edit-rating:after, .ajax_anim:after, #voxbItem:after {
+  clear: both;
+  float: none;
 }
 
 .rating {

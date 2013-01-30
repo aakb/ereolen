@@ -44,7 +44,7 @@
           }
         });
       });
-      
+
       $('.addRatingContainer').each(function() {
         var parent = $(this);
         parent.find('div.userRate div.rating').mouseout(function() {
@@ -68,9 +68,9 @@
           Drupal.voxb_item.button = null;
 
           if (Drupal.voxb_item.params.rating >= 0 && Drupal.voxb_item.params.item != '') {
-            $('div.ratingsContainer .ajax_anim').show();
-            
-            Drupal.voxb_item.login_popup();
+            $('div.ratingsContainer .ajax_anim').show(0, function() {
+              Drupal.voxb_item.login_popup();
+            });
           }
         }
       });
@@ -147,7 +147,7 @@
     // Review functionality.
     voxb_do_review: function(review, item, clicked) {
       var button = clicked;
-      
+
       $.ajax({
         type:'post',
         url:'/voxb/ajax/review/' + item + '/' + review,
@@ -184,7 +184,7 @@
     // Rate functionality.
     voxb_do_rate: function(rating, item) {
       $('div.ratingsContainer .ajax_anim').show();
-      
+
       $.ajax({
           type:'post',
           url:'/voxb/ajax/rating/' + item + '/' + (rating + 1),
@@ -222,7 +222,7 @@
     // Tag functionality.
     voxb_do_tag: function(tag, item, clicked) {
       var button = clicked;
-      
+
       $.ajax({
         type:'post',
         url:'/voxb/ajax/tag/' + item + '/' + tag,
@@ -253,7 +253,7 @@
     login_popup: function(callback) {
       $('#voxb-user-create').remove();
       var voxb_status = false;
-      
+
       $.ajax({
         async: false,
         type: 'post',

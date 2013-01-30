@@ -9,9 +9,8 @@
 ?>
 <div class="voxb">
   <div class="ratingsContainer">
-    <h3><?php print t('Ratings'); ?></h3>
       <div class="addRatingContainer">
-        <div id="<?php echo $data['faust_number']; ?>" class="userRate">
+        <div id="<?php echo $data['faust_number']; ?>"<?php echo $data['able'] ? ' class="userRate"' : ''; ?>>
           <?php for ($i = 1; $i <= 5; $i++) : ?>
           <div class="rating <?php if ($data['rating'] >= $i) : ?>star-on<?php ;endif ?>"></div>
           <?php ;endfor ?>

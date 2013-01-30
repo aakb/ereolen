@@ -47,28 +47,11 @@ if (module_exists('ding_voxb')) {
     <div class="inner">
       <h1 class="book-title"><?php print check_plain($object->record['dc:title'][''][0]); ?></h1>
       <div class="author"><?php echo t('By !author', array('!author' => $author)); ?></div>
-      <?php if (module_exists('ding_voxb')) { ?>
-      <div class="ratingsContainer">
-        <?php
-          $rating = $voxb_item->getRating();
-          $rating = intval($rating / 20);
-        ?>
-        <div class="addRatingContainer">
-          <div id="<?php echo $faust_number; ?>" <?php echo(($profile && $profile->isAbleToRate($faust_number)) ? 'class="userRate"' : ''); ?>>
-            <?php for ($i = 1; $i <= 5; $i++) { ?>
-              <div class="rating <?php echo($i <= $rating ? 'star-on' : 'star-off'); ?>"></div>
-            <?php } ?>
-          </div>
-        </div>
-        <?php
-        if ($voxb_item->getRatingCount() > 0) {
-          echo '<span class="ratingCountSpan">(<span class="ratingVotesNumber">' . $voxb_item->getRatingCount() . '</span> stemmer)</span>';
-        }
-        ?>
-        <img src="/<?php echo VOXB_PATH . '/img/ajax-loader.gif'; ?>" alt="" class="ajax_anim" />
-        <div class="clearfix"></div>
-      </div>
-      <?php } ?>
+      <?php
+      if (module_exists('ding_voxb')) {
+        print($object->voxb_rating);
+      }
+       ?>
       <div class="facebook-like">
         <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fereolen.dk%2Fting%2Fobject%2F<?php echo $object->id; ?>&amp;send=false&amp;layout=box_count&amp;width=130&amp;show_faces=false&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=75" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:130px; height:75px;" allowTransparency="true"></iframe>
       </div>

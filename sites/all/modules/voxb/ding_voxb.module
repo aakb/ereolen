@@ -539,7 +539,7 @@ function ding_voxb_preprocess_ting_object(&$variables) {
   // Tagging section
   $is_able_to_tag = ($user->uid) ? TRUE : FALSE;
   $tags = '';
-  
+
   // Prepare tags for display.
   foreach ($voxb_item->getTags() as $v) {
     $tags .= theme('voxb_tag_record', array('tag_name' => htmlspecialchars($v->getName())));
@@ -579,7 +579,7 @@ function ding_voxb_preprocess_ting_object(&$variables) {
   }
 
   $review_form = '';
-  
+
   // Either show review form only if user has no reviews at all,
   //   or he reviewed with a text review.
   // Also fill the form with the review if it exists and set correct button values.
@@ -615,7 +615,7 @@ function ding_voxb_preprocess_ting_object(&$variables) {
             'pager' => $voxb_pager,
           )
   );
-  
+
   $variables['object']->voxb_reviews = $voxb_reviews;
 
   // Rating section

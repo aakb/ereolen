@@ -31,7 +31,7 @@ class VoxbBase {
       'soap_version' => SOAP_1_2,
       'exceptions' => TRUE,
       'trace' => 1,
-      'cache_wsdl' => WSDL_CACHE_NONE
+      'cache_wsdl' => WSDL_CACHE_NONE,
     );
 
     try {
