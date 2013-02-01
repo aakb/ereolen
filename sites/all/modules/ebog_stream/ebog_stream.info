@@ -1,0 +1,5 @@
+name = Ebog Stream
+description = Provides online ebook streaming.
+version = 0.1
+core = 6.x
+dependencies[] = jquery_ui

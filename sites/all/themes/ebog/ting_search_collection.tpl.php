@@ -5,7 +5,6 @@
  * @file
  * Template to render a Ting collection of books.
  */
-
 module_load_include('isbn_static_func.inc', 'elib');
 foreach ($collection->objects as $obj) {
   $isbn = $obj->record['dc:identifier']['oss:PROVIDER-ID'][0];
@@ -75,7 +74,7 @@ foreach ($collection->objects as $obj) {
               <li class="seperator"></li>
               <li><?php print l(t('Loan'), $obj->url.'/download', array('html' => true, 'attributes' => array('rel' => 'lightframe[|width:350px; height:120px;]'))) ?></li>
               <li class="seperator"></li>
-              <li class="deactivated"><?php print l(t('Buy'), 'butik', array('html' => true, 'attributes' => array('rel' => 'lightframe')))?></li>
+              <li><?php print l(t('Stream'), 'publizon/' . $isbn . '/stream', array('html' => true, 'attributes' => array('rel' => 'lightframe', 'class' => 'ebook-stream' 'target' => '_blank')))?></li>
             <?php
               }
               else {
