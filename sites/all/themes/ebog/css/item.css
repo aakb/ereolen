@@ -21,6 +21,13 @@
   list-style-type: none;
 }
 
+/**
+ * TEMP HACK REMOVE LATER.
+ */
+.page-min-side .icons .sample {
+  display: none;
+}
+
 .panel-separator,
 .panel-region-separator {
   height: 25px;

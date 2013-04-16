@@ -186,11 +186,11 @@
   }
 
   var displayReader = function(response) {
-    showPopup(Drupal.t('Stream'), '<a href="/publizon/stream/'+response.book_id+'" target="_blank">' + Drupal.t('Start reading') + '</a>', []);
+    showPopup(Drupal.t('Stream'), '<a href="/stream/' + response.book_id + '" target="_blank" onClick="$(\'#ebog-stream-popup\').dialog(\'close\').remove();">' + Drupal.t('Start reading') + '</a>', []);
   }
 
   $(document).ready(function() {
-    $('a.ebook-stream').click(function(e) {
+    $('a[action="stream"]').live("click", function(e) {
       e.preventDefault();
 
       if (popupOpen) {

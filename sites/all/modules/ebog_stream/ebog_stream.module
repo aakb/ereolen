@@ -41,9 +41,9 @@ function ebog_stream_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['publizon/stream/%'] = array(
+  $items['stream/%'] = array(
     'page callback' => 'ebog_stream_iframe_stream',
-    'page arguments' => array(2),
+    'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
@@ -72,14 +72,17 @@ function ebog_stream_theme() {
  *  The books ISBN number.
  * @param int $order_number
  *  The Publizon order number.
+ * @param string $title
+ *  The books title.
  */
-function ebog_stream_set_session($book_id, $order_number) {
+function ebog_stream_set_session($book_id, $order_number, $title) {
   if (!isset($_SESSION['ebog_stream'])) {
     $_SESSION['ebog_stream'] = array();
   }
   $_SESSION['ebog_stream'][$book_id] = array(
     'session_url' => 'publizon/' . $order_number . '/checkauth',
     'order_number' => $order_number,
+    'title' => $title,
   );
 }
 
@@ -133,7 +136,8 @@ function ebog_stream_try_loan($book_id) {
       if ($user_loans->isLoan($book_id)) {
         if (isset($user_loans->loans[$book_id])) {
           $order_number = $user_loans->loans[$book_id]->retailer_order_number;
-          ebog_stream_set_session($book_id, $order_number);
+          $title = $user_loans->loans[$book_id]->title;
+          ebog_stream_set_session($book_id, $order_number, $title);
           $response = array(
             'status' => 'loaned',
             'book_id' => $book_id,
@@ -174,7 +178,8 @@ function ebog_stream_get_loan($book_id, $js = TRUE) {
     if ($user_loans->isLoan($book_id)) {
       if (isset($user_loans->loans[$book_id])) {
         $order_number = $user_loans->loans[$book_id]->retailer_order_number;
-        ebog_stream_set_session($book_id, $order_number);
+        $title = $user_loans->loans[$book_id]->title;
+        ebog_stream_set_session($book_id, $order_number, $title);
         $response = array(
           'status' => 'loaned',
           'book_id' => $book_id,
@@ -267,13 +272,13 @@ function ebog_stream_preprocess_page(&$variables) {
  * Adds extra action link to stream functions on loan lists.
  */
 function ebog_stream_preprocess_publizon_actions(&$vars) {
-  if ($vars['type'] == 'loan') {
+  if (in_array($vars['type'], array('loan', 'cart'))) {
     // Try to make the right link based on book loan status.
     $isbn = $vars['product']->isbn;
-    $link = l(t('Stream'), 'publizon/' . $isbn . '/stream', array('html' => TRUE, 'attributes' => array('class' => 'loan ebook-stream', 'target' => '_blank')));
+    $link = l(t('Stream'), 'publizon/' . $isbn . '/stream', array('html' => TRUE, 'attributes' => array('class' => 'loan ebook-stream', 'target' => '_blank', 'action' => 'stream')));
     if (ebog_stream_get_loan($isbn, FALSE)) {
       // Book was not available to fallback to normal loan link.
-      $link = l(t('Stream'), 'publizon/stream/' . $isbn, array('html' => TRUE, 'attributes' => array('class' => '.reader-init', 'target' => '_blank')));
+      $link = l(t('Stream'), 'stream/' . $isbn, array('html' => TRUE, 'attributes' => array('class' => '.reader-init', 'target' => '_blank')));
     }
 
     $vars['actions'][] =  array(

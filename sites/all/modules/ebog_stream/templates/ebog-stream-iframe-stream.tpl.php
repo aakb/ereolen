@@ -7,7 +7,7 @@
     <meta content="no-cache, no-store" http-equiv="cache-control" />
     <meta content="no-cache" http-equiv="pragma" />
     <meta content="-1" http-equiv="expires" />
-    <script type="text/javascript" src="https://reader.pubhub.dk/scripts/reader-1.2.8/reader.js"></script>
+    <script type="text/javascript" src="https://reader.pubhub.dk/scripts/reader-1.3.0/js"></script>
     <script type="text/javascript">
       var reader;
         function InitReader() {
@@ -19,6 +19,7 @@
           reader.Display();
       }
     </script>
+    <title>eReolen Stream - <?php print $vars['title'] ?></title>
   </head>
   <body onload="javascript:InitReader();">
     <div id="reader-container"></div>
