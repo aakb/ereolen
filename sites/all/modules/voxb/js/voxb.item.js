@@ -68,9 +68,10 @@
           Drupal.voxb_item.button = null;
 
           if (Drupal.voxb_item.params.rating >= 0 && Drupal.voxb_item.params.item != '') {
-            $('div.ratingsContainer .ajax_anim').show(0, function() {
+            $('div.ratingsContainer .ajax_anim').show();
+            setTimeout(function() {
               Drupal.voxb_item.login_popup();
-            });
+            }, 100);
           }
         }
       });

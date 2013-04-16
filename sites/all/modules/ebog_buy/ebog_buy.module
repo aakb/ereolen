@@ -1,0 +1,160 @@
+<?php
+/**
+ * @file
+ * Ebog buy module core file.
+ */
+
+/**
+ * Implementation of hook_menu.
+ */
+function ebog_buy_menu() {
+  $menu = array();
+
+  $menu['admin/settings/ebog_buy'] = array(
+    'title' => 'Ebog buy settings',
+    'description' => 'Customize ebook buy settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ebog_buy_admin_settings_form'),
+    'access arguments' => array('access ebog buy settings'),
+    'file' => 'ebog_buy.admin.inc',
+  );
+
+  $menu['publizon/%/resellers'] = array(
+    'page callback' => 'ebog_buy_get_resellers',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $menu['publizon/%/download/buy'] = array(
+    'page callback' => 'ebog_buy_get_resellers',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $menu;
+}
+
+/**
+ * Implementation of hook_theme.
+ */
+function ebog_buy_theme($existing, $type, $theme, $path) {
+  $hooks = array();
+
+  $hooks['ebog_buy_resellers'] = array(
+    'arguments' => array('data' => NULL),
+    'template' => 'templates/ebog_buy_resellers',
+  );
+
+  $hooks['ebog_buy_reseller_single'] = array(
+    'arguments' => array('data' => NULL),
+    'template' => 'templates/ebog_buy_reseller_single',
+  );
+
+  return $hooks;
+}
+
+/**
+ * Request reseller list and throw the response into the script.
+ *
+ * @param $isbn
+ *   The book identifier.
+ */
+function ebog_buy_get_resellers($isbn = '') {
+  $ws_link = variable_get('ebog_buy_purchase_ws', '');
+  $ws_key = variable_get('ebog_buy_secret_code', '');
+
+  $resellers = json_decode(ebog_buy_send_request($isbn, $ws_link, $ws_key));
+
+  if (json_last_error() === JSON_ERROR_NONE) {
+    usort($resellers, '_ebog_sort_resellers');
+
+    $response['markup'] = ebog_buy_get_resellers_markup($resellers);
+    $response['status'] = count($response) > 0 ? TRUE : FALSE;
+
+    drupal_json($response);
+  }
+  else {
+    watchdog('Ebog buy', 'Error validating JSON', WATCHDOG_ERROR);
+  }
+
+  exit(0);
+}
+
+/**
+ * Ask the web-service for reseller data for certain book.
+ *
+ * @param $isbn
+ *   The book identifier.
+ * @param $ws_link
+ *   Web-service link, where request are sent to.
+ * @param $ws_key
+ *   Web-service secret key, used for authentication.
+ * @return
+ *   Web-service response, expected in JSON format with resellers information.
+ */
+function ebog_buy_send_request($isbn = NULL, $ws_link = NULL, $ws_key = NULL) {
+  $resellers = '{}';
+
+  if (!empty($ws_link) && !empty($isbn) && !empty($ws_key)) {
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $ws_link . $isbn);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      'x-auth-secret:' . $ws_key
+    ));
+
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+      watchdog('Ebog buy', curl_error($ch), WATCHDOG_ERROR);
+    }
+    else {
+      $resellers = $response;
+    }
+
+    curl_close($ch);
+  }
+
+  return $resellers;
+}
+
+/**
+ * Custom function of resellers response for price-based sorting.
+ *
+ * Since the response is in a complex array/object form, custom sorting
+ * was required instead of standard methods.
+ */
+function _ebog_sort_resellers($a, $b) {
+  if ($a->Seller->UnitPrice == $b->Seller->UnitPrice) {
+    return 0;
+  }
+
+  return $a->Seller->UnitPrice < $b->Seller->UnitPrice ? 1 : -1;
+}
+
+/**
+ * Generate html markup of available resellers.
+ *
+ * @param $data
+ *   An array with resellers information.
+ * @return
+ *   Themed html markup.
+ */
+function ebog_buy_get_resellers_markup($data = array()) {
+  $markup = array();
+
+  if (is_array($data)) {
+    foreach ($data as $reseller) {
+      $markup[] = theme('ebog_buy_reseller_single', array(
+        'seller' => $reseller->Seller,
+        'price' => $reseller->UnitPrice,
+        'url' => $reseller->UnitPurchaceReference,
+      ));
+    }
+  }
+
+  return theme('ebog_buy_resellers', array('resellers' => implode('', $markup)));
+}
