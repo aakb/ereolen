@@ -70,11 +70,17 @@ foreach ($collection->objects as $obj) {
             <?php
               if (isset($elib[$isbn]['elib_sample_link'])) {
             ?>
-              <li><?php print l(t('Sample'), $elib[$isbn]['elib_sample_link'], array('html' => true, 'attributes' => array('target' => '_blank','action' => 'sample'))) ?></li>
+              <li><?php print l(t('Sample'), $elib[$isbn]['elib_sample_link'], array('html' => TRUE, 'attributes' => array('target' => '_blank','action' => 'sample'))) ?></li>
               <li class="seperator"></li>
-              <li><?php print l(t('Loan'), $obj->url.'/download', array('html' => true, 'attributes' => array('rel' => 'lightframe[|width:350px; height:120px;]'))) ?></li>
+              <?php if ($is_loan) { ?>
+              <li><?php print l(t('Stream'), 'stream/' . $isbn, array('html' => TRUE, 'attributes' => array('target' => '_blank'))); ?></li>
               <li class="seperator"></li>
-              <li><?php print l(t('Stream'), 'publizon/' . $isbn . '/stream', array('html' => true, 'attributes' => array('rel' => 'lightframe', 'class' => 'ebook-stream' 'target' => '_blank')))?></li>
+              <li><?php print l(t('Download'), 'publizon/' . $isbn . '/download', array('html' => true, 'attributes' => array('class' => 'ting-object-loan', 'action' => 'download'))) ?></li>
+              <?php } else { ?>
+              <li><?php print l(t('Stream'), 'publizon/' . $isbn . '/stream', array('html' => TRUE, 'attributes' => array('class' => 'ebook-stream', 'target' => '_blank', 'action' => 'stream'))); ?></li>
+              <li class="seperator"></li>
+              <li><?php print l(t('Loan'), 'publizon/' . $isbn . '/download', array('html' => true, 'attributes' => array('class' => 'ting-object-loan', 'action' => 'download'))) ?></li>
+              <?php } ?>
             <?php
               }
               else {

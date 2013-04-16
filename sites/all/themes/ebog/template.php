@@ -74,6 +74,13 @@ function ebog_preprocess_ting_search_collection(&$vars) {
       if (!empty($product->teaser_link)) {
         $vars['elib'][$isbn]['elib_sample_link'] = $product->teaser_link;
       }
+
+      // Check if the book is loaned by the user.
+      global $user;
+      if ($user->uid > 0) {
+        $user_loans = new PublizonUserLoans($user->uid);
+        $vars['is_loan'] = $user_loans->isLoan($isbn, TRUE);
+      }
     }
     catch (Exception $e) {
       drupal_set_message($e->getMessage(), 'error');

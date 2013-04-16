@@ -21,7 +21,7 @@ stylesheets[all][] = css/responsive.css
 ; ------- Declare default javascript includes
 
 scripts[] = js/script.js
-scripts[] = js/jquery.condense.min.js
+scripts[] = js/jquery.expander.min.js
 
 
 ; ------- Declare default theme regions

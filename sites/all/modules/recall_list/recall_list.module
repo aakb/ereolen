@@ -92,7 +92,8 @@ function recall_list_add_link($isbn) {
   $options = array(
     'query' => drupal_get_destination(),
     'attributes' => array(
-      'class' => 'recall-list-add'
+      'class' => 'recall-list-add',
+      'action' => 'add',
     )
   );
   return l(t('Remember'), 'recall_list/' . $isbn . '/add', $options);
@@ -108,7 +109,8 @@ function recall_list_delete_link($isbn) {
   $options = array(
     'query' => drupal_get_destination(),
     'attributes' => array(
-      'class' => 'recall-list-add'
+      'class' => 'recall-list-add',
+      'action' => 'remove',
     )
   );
   return l(t('Remove'), 'recall_list/' . $isbn . '/delete', $options);

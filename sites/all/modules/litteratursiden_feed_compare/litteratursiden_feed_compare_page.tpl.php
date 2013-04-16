@@ -31,7 +31,7 @@
             <?php echo l($item['title'], $item['url'], array('html' => true)); ?>
           </h3>
           <div class="author">
-            <?php echo l($item['author'], 'ting/search/"' . urlencode($item['author']), array('html' => true) . '"'); ?>
+            <?php echo l($item['author'], 'ting/search/"' . urlencode($item['author']) . '"', array('html' => true)); ?>
           </div>
           <div class="descr">
             <?php echo $item['abstract']; ?>

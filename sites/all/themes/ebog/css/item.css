@@ -21,6 +21,13 @@
   list-style-type: none;
 }
 
+/**
+ * TEMP HACK REMOVE LATER.
+ */
+.page-min-side .icons .sample {
+  display: none;
+}
+
 .panel-separator,
 .panel-region-separator {
   height: 25px;
@@ -35,11 +42,17 @@
   color: #8c938b;
 }
 
-#ting-object .publisherDescription {
+#ting-object .publisherDescription,
+#ting-object .publisherDescription .details {
+  color: #000;
   margin-bottom: 25px;
 }
 
-#ting-object .publisherDescription .condense_control_more:before {
+#ting-object .publisherDescription .read-more {
+  display: block !important;
+}
+
+#ting-object .publisherDescription .read-more:before {
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 6px solid #BE1F24;
@@ -51,7 +64,7 @@
     width: 0;
 }
 
-#ting-object .publisherDescription .condense_control_less:before {
+#ting-object .publisherDescription .read-less:before {
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-bottom: 6px solid #BE1F24;

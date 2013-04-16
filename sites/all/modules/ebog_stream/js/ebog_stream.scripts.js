@@ -8,7 +8,7 @@
   var login_button = Drupal.t('Login');
   var cancel_button = Drupal.t('Cancel');
 
-  showThrobber = function(ele, dialog) {
+  var showThrobber = function(ele, dialog) {
     if (dialog) {
       ele.css('visibility', 'hidden').after('<div class="ajax-loader" />');
     }
@@ -17,7 +17,7 @@
     }
   }
 
-  hideThrobber = function(ele, dialog) {
+  var hideThrobber = function(ele, dialog) {
     if (dialog) {
       ele.css('visibility', 'visible').next('.ajax-loader').remove();
     }
@@ -26,7 +26,7 @@
     }
   }
 
-  showPopup = function(title, content, buttons) {
+  var showPopup = function(title, content, buttons) {
     popupOpen = true;
 
     var options = {
@@ -34,17 +34,20 @@
       width: 'auto',
       modal: true,
       buttons: buttons,
-      close: function(event, ui) { $(this).remove(); popupOpen = false; }
+      close: function(event, ui) {
+        $(this).remove();
+        popupOpen = false;
+      }
     };
 
     $('<div id="ebog-stream-popup" title="' + title + '">' + content + '</div>').dialog(options);
   }
 
-  closePopup = function() {
+  var closePopup = function() {
     $(popupSelector).dialog('close').remove();
   }
 
-  showLoanConfirm = function() {
+  var showLoanConfirm = function() {
     var buttons = {};
     buttons[ok_button] = function() {
       var button = $('#ebog-stream-popup').parents('.ui-dialog:first').find('button');
@@ -58,7 +61,7 @@
           displayReader(response);
         }
         else if (response.status === 'loan_exceeded') {
-          showPopup(response.title, response.message, { 'Ok': function() { $(popupSelector).dialog('close').remove(); } });
+          showPopup(response.title, response.message, {'Ok': function() {$(popupSelector).dialog('close').remove();}});
         }
       });
     }
@@ -74,7 +77,7 @@
     );
   }
 
-  doLogin = function(action, data, callback) {
+  var doLogin = function(action, data, callback) {
     $.ajax({
       url: action,
       type: 'post',
@@ -88,7 +91,7 @@
     });
   }
 
-  displayLoginError = function(response) {
+  var displayLoginError = function(response) {
     if ($('#ebog-stream-popup .messages').length) {
       $('#ebog-stream-popup .messages').fadeOut('fast', function () {
         $(this).remove();
@@ -100,7 +103,7 @@
     }
   }
 
-  checkLoan = function(itemId, callback) {
+  var checkLoan = function(itemId, callback) {
     $.ajax({
       url: '/publizon/' + itemId + '/checkloan',
       type: 'post',
@@ -113,7 +116,7 @@
     });
   }
 
-  tryLoan = function(itemId, callback) {
+  var tryLoan = function(itemId, callback) {
     $.ajax({
       url: '/publizon/' + itemId + '/tryloan',
       type: 'post',
@@ -126,7 +129,7 @@
     });
   }
 
-  tryStream = function() {
+  var tryStream = function() {
     $.ajax({
       url: streamUrl,
       type: 'post',
@@ -182,12 +185,14 @@
     });
   }
 
-  displayReader = function(response) {
-    showPopup(Drupal.t('Stream'), '<a href="#" class="reader-init">' + Drupal.t('Start reading') + '</a>', []);
+  var displayReader = function(response) {
+    showPopup(Drupal.t('Stream'), '<a href="/stream/' + response.book_id + '" target="_blank" onClick="$(\'#ebog-stream-popup\').dialog(\'close\').remove();">' + Drupal.t('Start reading') + '</a>', []);
   }
 
   $(document).ready(function() {
-    $('a.ebook-stream').live('click', function() {
+    $('a[action="stream"]').live("click", function(e) {
+      e.preventDefault();
+
       if (popupOpen) {
         return false;
       }
@@ -201,12 +206,6 @@
       tryStream();
 
       return false;
-    });
-
-    // Workaround, so popup windows to not get blocked.
-    $('.reader-init').live('click', function() {
-      window.open('/publizon/stream', Drupal.t('eReader'), 'location=0,menubar=0,status=0,titlebar=0,toolbar=0');
-      closePopup();
     });
   });
 

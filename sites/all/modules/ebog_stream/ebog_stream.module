@@ -41,9 +41,9 @@ function ebog_stream_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['publizon/stream'] = array(
+  $items['stream/%'] = array(
     'page callback' => 'ebog_stream_iframe_stream',
-    'page arguments' => array(),
+    'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
@@ -66,13 +66,57 @@ function ebog_stream_theme() {
 }
 
 /**
+ * Add information about the order to current session.
+ *
+ * @param int $book_id
+ *  The books ISBN number.
+ * @param int $order_number
+ *  The Publizon order number.
+ * @param string $title
+ *  The books title.
+ */
+function ebog_stream_set_session($book_id, $order_number, $title) {
+  if (!isset($_SESSION['ebog_stream'])) {
+    $_SESSION['ebog_stream'] = array();
+  }
+  $_SESSION['ebog_stream'][$book_id] = array(
+    'session_url' => 'publizon/' . $order_number . '/checkauth',
+    'order_number' => $order_number,
+    'title' => $title,
+  );
+}
+
+/**
+ * Get information about the a book from current session.
+ *
+ * @param int $book_id
+ *  The books ISBN number.
+ * @return mixed array
+ *  Returns the session_url and order_number in an array or FALSE if it do not
+ *  exists.
+ */
+function ebog_stream_get_session($book_id) {
+  if (!isset($_SESSION['ebog_stream'])) {
+    return FALSE;
+  }
+  if (isset($_SESSION['ebog_stream'][$book_id])) {
+    return $_SESSION['ebog_stream'][$book_id];
+  }
+  return FALSE;
+}
+
+/**
  * Creates markup for the reader.
  */
-function ebog_stream_iframe_stream() {
-  echo theme('ebog_stream_iframe_stream', array(
-    'session_url' => $_SESSION['ebog_stream']['session_url'],
-    'order_number' => $_SESSION['ebog_stream']['order_number'],
-  ));
+function ebog_stream_iframe_stream($book_id) {
+  $data = ebog_stream_get_session($book_id);
+  if ($data === FALSE) {
+    // As we cache links, the session may not be up-to-date. So we try to get it
+    // updated.
+    ebog_stream_get_loan($book_id, FALSE);
+    $data = ebog_stream_get_session($book_id);
+  }
+  echo theme('ebog_stream_iframe_stream', $data);
 }
 
 /**
@@ -92,14 +136,11 @@ function ebog_stream_try_loan($book_id) {
       if ($user_loans->isLoan($book_id)) {
         if (isset($user_loans->loans[$book_id])) {
           $order_number = $user_loans->loans[$book_id]->retailer_order_number;
-          $_SESSION['ebog_stream'] = array(
-            'session_url' => 'publizon/' . $order_number . '/checkauth',
-            'order_number' => $order_number,
-          );
+          $title = $user_loans->loans[$book_id]->title;
+          ebog_stream_set_session($book_id, $order_number, $title);
           $response = array(
             'status' => 'loaned',
-            //'session_url' => 'publizon/' . $order_number . '/checkauth',
-            //'order_number' => $order_number,
+            'book_id' => $book_id,
           );
         }
         else {
@@ -127,25 +168,25 @@ function ebog_stream_try_loan($book_id) {
  *
  * @param type $book_id
  *   Book isbn.
+ * @param bool $js
+ *   If TRUE returns json array else return bool.
  */
-function ebog_stream_get_loan($book_id) {
-  global $user;
-
+function ebog_stream_get_loan($book_id, $js = TRUE) {
   $response = array();
   if (!empty($book_id)) {
-    $user_loans = new PublizonUserLoans($user->uid);
+    $user_loans = new PublizonUserLoans();
     if ($user_loans->isLoan($book_id)) {
       if (isset($user_loans->loans[$book_id])) {
         $order_number = $user_loans->loans[$book_id]->retailer_order_number;
-        $_SESSION['ebog_stream'] = array(
-            'session_url' => 'publizon/' . $order_number . '/checkauth',
-            'order_number' => $order_number,
-          );
+        $title = $user_loans->loans[$book_id]->title;
+        ebog_stream_set_session($book_id, $order_number, $title);
         $response = array(
           'status' => 'loaned',
-          //'session_url' => 'publizon/' . $order_number . '/checkauth',
-          //'order_number' => $order_number,
+          'book_id' => $book_id,
         );
+        if (!$js) {
+          return TRUE;
+        }
       }
       else {
         $response = array(
@@ -160,8 +201,12 @@ function ebog_stream_get_loan($book_id) {
     }
   }
 
-  drupal_json($response);
-  exit(0);
+  if ($js) {
+    drupal_json($response);
+    exit(0);
+  }
+
+  return FALSE;
 }
 
 /**
@@ -173,11 +218,9 @@ function ebog_stream_get_loan($book_id) {
  *   Book isbn.
  */
 function ebog_stream_stream($book_id) {
-  global $user;
-
   $response = array();
 
-  if ($user->uid) {
+  if (user_is_logged_in()) {
     ebog_stream_get_loan($book_id);
   }
   else {
@@ -219,7 +262,32 @@ function ebog_stream_check_auth($order_number) {
  */
 function ebog_stream_preprocess_page(&$variables) {
   if ((arg(0) === 'ting' && arg(1) === 'object') || (arg(0) === 'ting' && arg(1) === 'search') || (arg(0) === 'min_side')) {
-    //drupal_add_js(drupal_get_path('module', 'ebog_stream') . '/js/ebog_stream.reader.js');
     drupal_add_js(drupal_get_path('module', 'ebog_stream') . '/js/ebog_stream.scripts.js');
+  }
+}
+
+/**
+ * Implements hook_preprocess_publizon_actions().
+ *
+ * Adds extra action link to stream functions on loan lists.
+ */
+function ebog_stream_preprocess_publizon_actions(&$vars) {
+  if (in_array($vars['type'], array('loan', 'cart'))) {
+    // Try to make the right link based on book loan status.
+    $isbn = $vars['product']->isbn;
+    $link = l(t('Stream'), 'publizon/' . $isbn . '/stream', array('html' => TRUE, 'attributes' => array('class' => 'loan ebook-stream', 'target' => '_blank', 'action' => 'stream')));
+    if (ebog_stream_get_loan($isbn, FALSE)) {
+      // Book was not available to fallback to normal loan link.
+      $link = l(t('Stream'), 'stream/' . $isbn, array('html' => TRUE, 'attributes' => array('class' => '.reader-init', 'target' => '_blank')));
+    }
+
+    $vars['actions'][] =  array(
+      '#link' => $link,
+      '#class' => 'download',
+      '#weight' => 1,
+    );
+
+    // Re-sort the actions based on weight.
+    usort($vars['actions'], 'element_sort');
   }
 }

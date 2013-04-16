@@ -2,13 +2,21 @@ jQuery(function($){
   $(document).ready(function() {
 
     // Add truncation function to publisher description on object view.
-    $('#ting-object .publisherDescription').condense({
-        moreSpeed: 'fast',
-        lessSpeed: 'fast',
-        moreText: Drupal.t('More'),
-        lessText: Drupal.t('Less'),
-        ellipsis: '',
-        condensedLength: 350
+//    $('#ting-object .publisherDescription').condense({
+//        moreSpeed: 'fast',
+//        lessSpeed: 'fast',
+//        moreText: Drupal.t('More'),
+//        lessText: Drupal.t('Less'),
+//        ellipsis: '',
+//        condensedLength: 350
+//    });
+
+
+    $('#ting-object .publisherDescription').expander({
+      slicePoint:       350,
+      expandPrefix:     ' ',
+      expandText:       Drupal.t('More'),
+      userCollapseText: Drupal.t('Less')
     });
 
     // Make the help block clickable.
