@@ -74,7 +74,10 @@ div.messages.error {
 /*.panel-pane.pane-latest-news .pane-content .view-content .views-row,*/
 .panel-panel .pane-latest-news .view-content,
 .section-faq div.panel-pane.pane-contact,
-.pane-latest-news .pane-content {
+.pane-latest-news .pane-content,
+.pane-ebog-author-portrait-0 .ebog-author-portrait,
+.block-ebog_author_portrait .ebog-author-portrait,
+.block-ebog_banner .ebog-banner {
   border: 2px solid #DBDDDA;
   /*
    *display: inline-block;
@@ -92,7 +95,10 @@ div.messages.error {
 .pane-embedvideo .ebog_embed_video,
 .pane-front .feed-and-compare-front,
 .pane-elib-block-lastloans-2 .pane-content,
-.pane-node-content .pane-content {
+.pane-node-content .pane-content,
+.pane-ebog-author-portrait-0 .ebog-author-portrait,
+.block-ebog_author_portrait .ebog-author-portrait,
+.block-ebog_banner .ebog-banner {
   border-bottom: 0;
 }
 
@@ -176,7 +182,10 @@ voxb h3 {
 .panel-pane.pane-latest-news .pane-content,
 .page-anmeldelser .pane-content,
 .section-artikel .pane-content,
-.section-faq .pane-content {
+.section-faq .pane-content,
+.pane-ebog-author-portrait-0 .pane-content,
+.block-ebog_author_portrait .content,
+.block-ebog_banner .content {
   padding: 0 !important;
   border: 0 !important;
 }
@@ -186,7 +195,8 @@ voxb h3 {
 .pane-front .feed-and-compare-front,
 #sidebar-first #block-views-latest_news-block_1 .content .view-content,
 .panel-pane.pane-latest-news .pane-content .view-content,
-.pane-faq-panel-pane-1 .view-content .item-list ul {
+.pane-faq-panel-pane-1 .view-content .item-list ul,
+.pane-ebog-author-portrait-0 .ebog-author-portrait {
   padding: 10px;
 }
 
@@ -194,6 +204,9 @@ voxb h3 {
 .pane-front .bottom-bar .see-more,
 .pane-embedvideo .bottom-bar .see-more,
 .pane-elib-block-lastloans-2 .bottom-bar .see-more,
+.pane-ebog-author-portrait-0 .bottom-bar .see-more,
+.block-ebog_author_portrait .bottom-bar .see-more,
+.block-ebog_banner .bottom-bar .see-more,
 #sidebar-first #block-views-latest_news-block_1 .content .view-footer p,
 #main-content .pane-faq-panel-pane-1 .view-content .item-list .views-field-tid span.field-content,
 .panel-panel .pane-latest-news .view-footer p {
@@ -204,6 +217,9 @@ voxb h3 {
 #sidebar-first #block-elib_block_categories-0 .content .categories-links,
 .pane-content .bottom-bar,
 .pane-elib-block-lastloans-2 .bottom-bar,
+.pane-ebog-author-portrait-0 .bottom-bar,
+.block-ebog_author_portrait .bottom-bar,
+.block-ebog_banner .bottom-bar,
 #sidebar-first #block-views-latest_news-block_1 .content .view-footer,
 .panel-pane.pane-latest-news .pane-content .view-footer,
 #main-content .pane-faq-panel-pane-1 .view-content .item-list .views-field-tid {
@@ -213,6 +229,9 @@ voxb h3 {
 #sidebar-first #block-elib_block_categories-0 .content .categories-link a,
 .pane-front .bottom-bar .see-more a,
 .pane-embedvideo .bottom-bar .see-more a,
+.pane-ebog-author-portrait-0 .bottom-bar .see-more a,
+.block-ebog_author_portrait .bottom-bar .see-more a,
+.block-ebog_banner .bottom-bar .see-more a,
 .pane-elib-block-lastloans-2 .bottom-bar .see-more a,
 #sidebar-first #block-views-latest_news-block_1 .content .view-footer a {
   padding: 3px 7px;
@@ -221,6 +240,9 @@ voxb h3 {
 #sidebar-first #block-elib_block_categories-0 .content .categories-link a:hover,
 .pane-front .bottom-bar .see-more a:hover,
 .pane-embedvideo .bottom-bar .see-more a:hover,
+.pane-ebog-author-portrait-0 .bottom-bar .see-more a:hover,
+.block-ebog_author_portrait .bottom-bar .see-more a:hover,
+.block-ebog_banner .bottom-bar .see-more a:hover,
 .pane-elib-block-lastloans-2 .bottom-bar .see-more a:hover,
 #sidebar-first #block-views-latest_news-block_1 .content .view-footer a:hover,
 #main-content .icons ul li a:hover {
@@ -790,6 +812,8 @@ input[type=submit],
 #sidebar-first #block-elib_block_categories-0 .content .categories-links,
 .pane-content div.bottom-bar,
 .pane-elib-block-lastloans-2 .bottom-bar,
+.block-ebog_author_portrait .bottom-bar,
+.block-ebog_banner .bottom-bar,
 #sidebar-first #block-views-latest_news-block_1 .content .view-footer,
 .panel-pane.pane-latest-news .pane-content .view-footer,
 .display-book .icons .icons,
@@ -849,7 +873,9 @@ div.messages,
 .panel-pane.pane-embedvideo .pane-content,
 .pane-embedvideo .ebog_embed_video,
 .pane-front .feed-and-compare-front,
-.pane-elib-block-lastloans-2 .pane-content {
+.pane-elib-block-lastloans-2 .pane-content,
+.pane-ebog-author-portrait-0 .ebog-author-portrait,
+.block-ebog_author_portrait .ebog-author-portrait {
   -webkit-border-radius: 4px 4px 0 0;
      -moz-border-radius: 4px 4px 0 0;
           border-radius: 4px 4px 0 0;
@@ -883,6 +909,8 @@ div.messages,
 #sidebar-first #block-elib_block_categories-0 .content .categories-links,
 .pane-content div.bottom-bar,
 .pane-elib-block-lastloans-2 .bottom-bar,
+.block-ebog_author_portrait .bottom-bar,
+.block-ebog_banner .bottom-bar,
 #sidebar-first #block-views-latest_news-block_1 .content .view-footer,
 #main-content .pane-faq-panel-pane-1 .view-content .item-list .views-field-tid,
 .panel-panel .pane-latest-news .view-footer {
@@ -897,6 +925,9 @@ div.messages,
 #sidebar-first #block-elib_block_categories-0 .content .categories-link a:hover,
 .pane-front .bottom-bar .see-more a:hover,
 .pane-embedvideo .bottom-bar .see-more a:hover,
+.pane-ebog-author-portrait-0 .bottom-bar .see-more a:hover,
+.block-ebog_author_portrait .bottom-bar .see-more a:hover,
+.block-ebog_banner .bottom-bar a:hover,
 .pane-elib-block-lastloans-2 .bottom-bar .see-more a:hover,
 #sidebar-first #block-views-latest_news-block_1 .content .view-footer a:hover,
 #main-content .icons ul li a:hover,
@@ -921,6 +952,9 @@ div.messages,
 #sidebar-first #block-elib_block_categories-0 .content .categories-link a:hover,
 .pane-front .bottom-bar .see-more a:hover,
 .pane-embedvideo .bottom-bar .see-more a:hover,
+.pane-ebog-author-portrait-0 .bottom-bar .see-more a:hover,
+.block-ebog_author_portrait .bottom-bar .see-more a:hover,
+.block-ebog_banner .bottom-bar .see-more a:hover,
 .pane-elib-block-lastloans-2 .bottom-bar .see-more a:hover,
 #sidebar-first #block-views-latest_news-block_1 .content .view-footer a:hover,
 #main-content .icons ul li a:hover,
@@ -1133,4 +1167,12 @@ ul.nice-menu-down li.over a {
 
 .pane-ebog-banner-0 .ebog-banner {
   padding-bottom: 20px
+}
+
+.block-ebog_author_portrait .ebog-author-portrait .ebog-author-portrait-descr {
+  width: 125px;
+}
+
+.pane-ebog-author-portrait-0 .ebog-author-portrait .ebog-author-portrait-descr {
+  width: 155px;
 }
