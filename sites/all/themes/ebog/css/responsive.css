@@ -1,4 +1,4 @@
-@media screen and (max-width:480px){
+@media screen and (max-width:480px) {
   .front #main-wrapper #main-content .panel-panel.panel-col-first,
   .block-elib_infinite_carousel h2,
   .infiniteCarousel a.arrow,
@@ -173,55 +173,6 @@
     width: 96%;
   }
 
-  #site-menu ul.menu li:first-child a,
-  #site-menu ul.menu li:first-child a:hover,
-  #site-menu ul.menu li:first-child a.active,
-  #site-menu ul.menu li:first-child + * a,
-  #site-menu ul.menu li:first-child + * a:hover,
-  #site-menu ul.menu li:first-child + * a.active,
-  #site-menu ul.menu li:first-child + * + * a,
-  #site-menu ul.menu li:first-child + * + * a:hover,
-  #site-menu ul.menu li:first-child + * + * a.active,
-  #site-menu ul.menu li:first-child + * + * + * a,
-  #site-menu ul.menu li:first-child + * + * + * a:hover,
-  #site-menu ul.menu li:first-child + * + * + * a.active {
-    background: none;
-  }
-
-  #site-menu {
-    height: 32px;
-    padding-top: 8px;
-    border-top: 2px solid #DBDDDA;
-  }
-
-  #site-menu ul.menu li {
-    width: 25%;
-    height: 32px;
-    float: left;
-    background: none;
-    margin: 0;
-  }
-
-  #site-menu ul.menu li a {
-    width: 100%;
-    height: 32px;
-    text-indent: 0;
-    background: none;
-    text-align: center;
-    font: 20px/26px 'BebasNeueRegular', Helvetica, Arial, sans-serif;
-    color: #8C938B;
-    text-decoration: none;
-  }
-
-  #site-menu ul.menu li:hover a,
-  #site-menu ul.menu li a:hover {
-    text-decoration: underline;
-  }
-
-  #site-menu ul.menu li a.active {
-    color: #BF2226;
-  }
-
   .panel-pane.pane-block.pane-elib-block-lastloans-2 .pane-content,
   .panel-pane.pane-views-panes.pane-anmeldelser-panel-pane-1 .pane-content,
   .panel-pane.pane-views-panes.pane-user-reviews-panel-pane-2 .pane-content {
@@ -344,19 +295,19 @@
   div.ui-dialog .ui-dialog-content {
     width: 280px !important;
   }
-  
+
   #elib-popup-login-form input,
   #elib-popup-login-form p {
     width: 250px;
   }
-  
+
   #footer #footer-first {
     padding: 30px 10px 10px;
   }
 
   #footer #footer-first .block.block-block {
     clear: both;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   #footer #footer-first .block.block-block .content {
@@ -370,7 +321,7 @@
   }
 
   #ting-object .abstract {
-    margin-top: 0px;
+    margin-top: 0;
   }
 
   #ting-object .facebook-like iframe {
@@ -387,9 +338,262 @@
   #ting-object h1.book-title {
     width: 100%;
   }
-  
+
   .preface {
     display: none;
   }
-  
+
+}
+
+@media screen and (min-width:480px) and (max-width: 960px) {
+  body,
+  #footer,
+  #page {
+    width: 100%;
+  }
+
+  /* Containers
+  ----------------------------------------------------------------------------------------------------*/
+  #site-header,
+  #header-regions,
+  #main-content-container,
+  #footer-wrapper,
+  .container-16 {
+    width: 92%;
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+
+  /* Grid >> Global
+  ----------------------------------------------------------------------------------------------------*/
+  .container-16 .grid-1,
+  .container-16 .grid-2,
+  .container-16 .grid-3,
+  .container-16 .grid-4,
+  .container-16 .grid-5,
+  .container-16 .grid-6,
+  .container-16 .grid-7,
+  .container-16 .grid-8,
+  .container-16 .grid-9,
+  .container-16 .grid-10,
+  .container-16 .grid-11,
+  .container-16 .grid-12,
+  .container-16 .grid-13,
+  .container-16 .grid-14,
+  .container-16 .grid-15,
+  .container-16 .grid-16 {
+    display:inline;
+    float: left;
+    position: relative;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  /* Grid >> 16 Columns
+  ----------------------------------------------------------------------------------------------------*/
+  .container-16 .grid-1 {
+    width:4.25%;
+  }
+
+  .container-16 .grid-2 {
+    width:10.5%;
+  }
+
+  .container-16 .grid-3 {
+    width:16.75%;
+  }
+
+  .container-16 .grid-4 {
+    width:23.0%;
+  }
+
+  .container-16 .grid-5 {
+    width:29.25%;
+  }
+
+  .container-16 .grid-6 {
+    width:35.5%;
+  }
+
+  .container-16 .grid-7 {
+    width:41.75%;
+  }
+
+  .container-16 .grid-8 {
+    width:48.0%;
+  }
+
+  .container-16 .grid-9 {
+    width:54.25%;
+  }
+
+  .container-16 .grid-10 {
+    width:60.5%;
+  }
+
+  .container-16 .grid-11 {
+    width:66.75%;
+  }
+
+  .container-16 .grid-12 {
+    width:73.0%;
+  }
+
+  .container-16 .grid-13 {
+    width:79.25%;
+  }
+
+  .container-16 .grid-14 {
+    width:85.5%;
+  }
+
+  .container-16 .grid-15 {
+    width:91.75%;
+  }
+
+  .container-16 .grid-16 {
+    width:98.0%;
+  }
+
+  /* Panels width
+  ----------------------------------------------------------------------------------------------------*/
+  .panel-2col .panel-col-first,
+  .panel-2col .panel-col-last {
+    width: 100%;
+  }
+
+  /* Header section
+  ----------------------------------------------------------------------------------------------------*/
+  #branding a {
+    display: block;
+  }
+
+  #branding a img {
+    width: 100%;
+    height: auto;
+    max-width: 250px;
+  }
+
+  #ting-search-form div:first-child {
+    width: 100%;
+    padding: 0;
+  }
+
+  #ting-search-form .form-text {
+    width: 85%;
+  }
+
+  #ting-search-form input.form-submit {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+
+  /* Main Section
+  ----------------------------------------------------------------------------------------------------*/
+  .feed_and_compare_error {
+    overflow-x: scroll;
+  }
+
+  #block-fb_social-activityfeed {
+    display: none;
+  }
+
+}
+
+@media screen and (min-width:480px) and (max-width: 740px) {
+  #branding,
+  #site-menu {
+    width: 50%;
+    margin: 10px auto;
+    padding: 0;
+  }
+
+  #site-menu .block-menu {
+    float: right;
+  }
+
+  #search-box {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  #main-wrapper,
+  #sidebar-first {
+    width: 100%;
+  }
+
+  #block-fb_social-activityfeed {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  #site-menu ul.menu li:first-child a,
+  #site-menu ul.menu li:first-child a:hover,
+  #site-menu ul.menu li:first-child a.active,
+  #site-menu ul.menu li:first-child + * a,
+  #site-menu ul.menu li:first-child + * a:hover,
+  #site-menu ul.menu li:first-child + * a.active,
+  #site-menu ul.menu li:first-child + * + * a,
+  #site-menu ul.menu li:first-child + * + * a:hover,
+  #site-menu ul.menu li:first-child + * + * a.active,
+  #site-menu ul.menu li:first-child + * + * + * a,
+  #site-menu ul.menu li:first-child + * + * + * a:hover,
+  #site-menu ul.menu li:first-child + * + * + * a.active {
+    background: none;
+  }
+
+  #site-menu {
+    height: 32px;
+    padding-top: 8px;
+    border-top: 2px solid #DBDDDA;
+  }
+
+  #site-menu ul.menu li {
+    height: 32px;
+    float: left;
+    background: none;
+    margin: 0;
+  }
+
+  #site-menu ul.menu li a {
+    width: 100%;
+    height: 32px;
+    text-indent: 0;
+    background: none;
+    text-align: center;
+    font: 20px/26px 'BebasNeueRegular', Helvetica, Arial, sans-serif;
+    color: #8C938B;
+    text-decoration: none;
+  }
+
+  #site-menu ul.menu li:hover a,
+  #site-menu ul.menu li a:hover {
+    text-decoration: underline;
+  }
+
+  #site-menu ul.menu li a.active {
+    color: #BF2226;
+  }
+
+  ul.nice-menu-down li a, ul.nice-menu-down li.menuparent a,
+  ul.nice-menu-down ul li a, ul.nice-menu-down li.menuparent ul li a {
+    font-size: 90%;
+  }
+}
+
+/* Carousel tabs
+  ----------------------------------------------------------------------------------------------------*/
+.carousel-tabs ul {
+  display: table;
+  width: 100%;
+}
+
+.carousel-tabs ul li {
+  display: table-cell;
+}
+
+.ajax-loader {
+  margin-left: -110px;
 }
