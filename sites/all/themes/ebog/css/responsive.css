@@ -462,6 +462,10 @@
     width: 100%;
   }
 
+  .panel-2col .panel-col-last {
+    margin-top: 15px;
+  }
+
   /* Header section
   ----------------------------------------------------------------------------------------------------*/
   #branding a {
@@ -499,6 +503,68 @@
     display: none;
   }
 
+  .tab-navigation-main-inner #ting-object .picture {
+    width: 30%;
+    min-width: 160px;
+  }
+
+  .tab-navigation-main-inner #ting-object .meta {
+    width: 62%;
+  }
+
+  #ting-object .facebook-like {
+    position: relative;
+    left: 0;
+    float: left;
+  }
+
+  #ting-object .details {
+    width: 100%;
+  }
+
+  #ting-object .details .left,
+  #ting-object .details .right {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  #ting-object .details .left .item-list,
+  #ting-object .details .right .item-list {
+    display: block;
+  }
+
+  #ting-object .icons {
+    margin: 0 0 10px 0;
+  }
+
+  .panel-region-separator {
+    height: 0;
+  }
+
+  #ting-search-result ul li.display-book .picture {
+    min-width: 100px;
+    width: 20%;
+  }
+
+  #ting-search-result ul li.display-book .record {
+    width: 77%;
+  }
+
+  #ting-search-result ul li.display-book .record .left {
+    width: 37%;
+    float: left;
+  }
+
+  #ting-search-result ul li.display-book .record .right {
+    width: 50%;
+    float: right;
+    min-width: 200px;
+  }
+
+  .feed-and-compare-front .display-book .right {
+    width: 60%;
+    float: right;
+  }
 }
 
 @media screen and (min-width:480px) and (max-width: 740px) {
@@ -521,6 +587,10 @@
   #main-wrapper,
   #sidebar-first {
     width: 100%;
+  }
+
+  #main-wrapper {
+    margin-bottom: 10px;
   }
 
   #block-fb_social-activityfeed {
