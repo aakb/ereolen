@@ -276,11 +276,6 @@
     margin-bottom: 12px;
   }
 
-  #user-login,
-  #user-login .form-item input {
-    width: 100%;
-  }
-
   #user-login input[type="submit"] {
     float: left;
     width: 100%;
@@ -565,6 +560,50 @@
     width: 60%;
     float: right;
   }
+
+  .pane-recall-list-cart,
+  .pane-publizon-loans-myloans {
+    width: 47%;
+  }
+
+  .pane-recall-list-cart {
+    margin: 0;
+  }
+
+  .pane-publizon-loans-myloans {
+    margin: 0 10px 10px 0;
+  }
+
+  .publizon-products-list .display-book {
+    width: 100%;
+  }
+
+  .display-book .right {
+    width: auto;
+  }
+}
+
+
+@media screen and (max-width: 960px) {
+  #user-login,
+  .voxb textarea,
+  #user-login .form-item input,
+  #comment-form textarea,
+  #comment-form input {
+    width: 100%;
+    max-width: 540px;
+    padding: 4px 0;
+  }
+
+  .voxb input[type="submit"],
+  #user-login input#edit-submit,
+  #comment-form input[type="submit"] {
+    margin: 0 -1px 0 0;
+  }
+
+  #main-wrapper {
+    margin-bottom: 10px;
+  }
 }
 
 @media screen and (min-width:480px) and (max-width: 740px) {
@@ -589,12 +628,21 @@
     width: 100%;
   }
 
-  #main-wrapper {
-    margin-bottom: 10px;
-  }
-
   #block-fb_social-activityfeed {
     display: block;
+  }
+
+  ul.nice-menu-down li a,
+  ul.nice-menu-down li.menuparent a {
+    font-size: 90%;
+  }
+
+  #footer #footer-first {
+    padding: 30px 10px 20px;
+  }
+
+  #footer #footer-first .block.block-block .content {
+    margin-top: 5px;
   }
 }
 
@@ -647,9 +695,15 @@
     color: #BF2226;
   }
 
-  ul.nice-menu-down li a, ul.nice-menu-down li.menuparent a,
-  ul.nice-menu-down ul li a, ul.nice-menu-down li.menuparent ul li a {
-    font-size: 90%;
+  ul.nice-menu-down li a,
+  ul.nice-menu-down li.menuparent a {
+    font-size: 85%;
+  }
+
+  .pane-recall-list-cart,
+  .pane-publizon-loans-myloans {
+    width: 100%;
+    margin: 0 0 10px 0;
   }
 }
 
@@ -658,10 +712,21 @@
 .carousel-tabs ul {
   display: table;
   width: 100%;
+  table-layout: fixed;
 }
 
 .carousel-tabs ul li {
   display: table-cell;
+  width: auto !important;
+}
+
+.carousel-wrapper {
+  height: 188px;
+  overflow: hidden;
+}
+
+.carousel-inner ul li {
+  min-width: 124px;
 }
 
 .ajax-loader {
