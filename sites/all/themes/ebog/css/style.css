@@ -980,7 +980,7 @@ input[type=submit]:hover {
 #ting-object .facebook-like {
   float: right;
   position: absolute;
-  left: 84%;
+  right: -30px;
   top: 0;
 }
 
