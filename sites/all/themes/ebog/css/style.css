@@ -1191,3 +1191,8 @@ ul.nice-menu-down li.over a {
 #read-offline {
   margin-right: 4px;
 }
+
+#ting-object {
+  overflow: hidden;
+  width: 100%;
+} 
