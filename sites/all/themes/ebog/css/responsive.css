@@ -1,13 +1,10 @@
-@media screen and (max-width:480px) {
-  .front #main-wrapper #main-content .panel-panel.panel-col-first,
+@media screen and (max-width: 480px) {
   .block-elib_infinite_carousel h2,
   .infiniteCarousel a.arrow,
   #sidebar-first #block-elib_block_categories-0,
   #sidebar-first div#block-block-12.block.block-block,
-  #sidebar-first #block-views-latest_news-block_1,
   #ting-search-result ul li .record .right .abstract,
   #ting-result #ting-sort-by,
-  #header-regions,
   #ting-object .details {
     display: none;
   }
@@ -20,7 +17,6 @@
   #footer,
   #page {
     width: 100%;
-  /*overflow: hidden;*/
   }
 
   body,
@@ -51,8 +47,8 @@
   }
 
   #site-header #branding {
-    margin-top: 24px;
     margin-bottom: 16px;
+    margin-top: 24px;
     text-align: center;
   }
 
@@ -93,27 +89,29 @@
   }
 
   #header-regions {
-    height: 163px;
+    height: auto;
     margin-bottom: 17px;
     overflow: hidden;
+    padding-bottom: 10px;
+    padding-top: 0;
   }
 
   #header-regions .infiniteCarousel,
   #header-regions .infiniteCarousel .wrapper {
-    width: 100%;
     margin: 0;
     padding: 0;
+    width: 100%;
   }
 
   .infiniteCarousel .wrapper ul {
-    width: 100%;
     height: 100%;
+    width: 100%;
   }
 
   .infiniteCarousel ul li {
     height: 100%;
-    width: 33%;
     padding: 0;
+    width: 33%;
   }
 
   .infiniteCarousel ul li a img {
@@ -131,29 +129,29 @@
   }
 
   #search-box {
-    text-align: center;
     float: left;
+    text-align: center;
   }
 
   #ting-search-form {
-    padding: 3px 3px 3px 8px;
-    height: 30px;
-    width: 96%;
     -webkit-border-radius: 5px;
        -moz-border-radius: 5px;
             border-radius: 5px;
+    height: 30px;
+    padding: 3px 3px 3px 8px;
+    width: 96%;
     -webkit-background-clip: padding-box;
        -moz-background-clip: padding;
             background-clip: padding-box;
   }
 
   #ting-search-form div {
+    background: none;
     background-color: #FFFFFF;
-    width: 100%;
     display: inline-block;
+    width: 100%;
     zoom: 1; /* ie7 hack for display:inline-block */
     *display: inline;
-    background: none;
   }
 
   #ting-search-form div:first-child {
@@ -189,37 +187,16 @@
     width: 100%;
   }
 
-  .display-book .right,
-  #ting-search-result ul li.display-book .record {
-    width: 70%;
-  }
-
-  .display-book .left,
   #ting-search-result ul li.display-book .picture {
-    width: 30%;
     margin: 0;
-  }
-
-  #ting-object .picture {
-    float: left;
+    min-width: 128px;
     width: 30%;
-  }
-
-  #ting-object .picture img {
-    width: 85%;
-  }
-
-  #ting-object .meta.unit.grid-8.omega,
-  #ting-object .meta.unit.grid-9.omega {
-    float: right;
-    width: 70%;
   }
 
   .panel-panel.panel-col .panel-separator,
   .panel-pane.pane-block.pane-netsound-review-1,
   .panel-pane.pane-block.pane-netsound-review-2,
-  .panel-pane.pane-voxb,
-  #ting-object .meta .voxb {
+  .panel-pane.pane-voxb {
     display: none;
   }
 
@@ -230,23 +207,23 @@
   #main-content .pane-faq-panel-pane-1 .view-content .item-list ul,
   .panel-pane.pane-block.pane-elib-user-account .pane-content,
   .panel-pane.pane-block.pane-netsound-cart-0 .pane-content {
-    padding: 0;
     border: 0;
+    padding: 0;
   }
 
   .pane-elib-block-lastloans-3,
   .pane-elib-user-account,
   .pane-netsound-cart-0 {
-    padding-bottom: 35px;
     margin: 0;
+    padding-bottom: 35px;
   }
 
  #main-content .pane-faq-panel-pane-1 .view-content .item-list .views-field-tid {
     -webkit-border-radius: 4px;
        -moz-border-radius: 4px;
             border-radius: 4px;
-    text-align: center;
     margin-top: 12px;
+    text-align: center;
   }
 
   #main-content .pane-faq-panel-pane-1 .view-content .item-list .views-field-tid span.field-content {
@@ -297,7 +274,7 @@
   }
 
   #footer #footer-first {
-    padding: 30px 10px 10px;
+    padding: 30px 10px 10px 0;
   }
 
   #footer #footer-first .block.block-block {
@@ -320,27 +297,71 @@
   }
 
   #ting-object .facebook-like iframe {
-    width: 180px;
     float: left;
+    width: 180px;
   }
 
   #ting-object .facebook-like {
-    position: inherit;
     clear: both;
     float: left;
+    position: inherit;
   }
 
   #ting-object h1.book-title {
     width: 100%;
   }
 
-  .preface {
-    display: none;
+  ul.nice-menu-down li a,
+  ul.nice-menu-down li.menuparent > a,
+  ul.nice-menu-down ul li a,
+  ul.nice-menu-down li.menuparent ul li a {
+    font-size: 85%;
+    padding: 5px 5px 10px 5px;
   }
 
+  .block-nice_menus h2 {
+    font-size: 85%;
+    left: 14px;
+    top: 5px;
+  }
+
+  .content .carousel-tabs ul,
+  .content .carousel-tabs ul li {
+    display: block;
+    width: 100%;
+  }
+
+  .content .carousel-tabs ul li a {
+    padding: 5px;
+  }
+
+  .content .carousel-runner {
+    height: 188px;
+    overflow: hidden;
+  }
+
+  .carousel-inner ul li {
+    margin: auto !important;
+  }
+
+  .section-ting .tab-navigation-main-inner #ting-object .picture,
+  .section-ting .tab-navigation-main-inner #ting-object .meta {
+    width: 100%;
+    float: none;
+    display: block;
+  }
+
+  .tab-navigation-main-inner #ting-object #main {
+    margin-bottom: 0;
+  }
+
+  #ting-search-result ul li.display-book .record {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
 
-@media screen and (min-width:480px) and (max-width: 960px) {
+@media screen and (min-width: 480px) and (max-width: 960px) {
   body,
   #footer,
   #page {
@@ -354,9 +375,9 @@
   #main-content-container,
   #footer-wrapper,
   .container-16 {
-    width: 92%;
     margin-left: 4%;
     margin-right: 4%;
+    width: 92%;
   }
 
   /* Grid >> Global
@@ -379,9 +400,9 @@
   .container-16 .grid-16 {
     display:inline;
     float: left;
-    position: relative;
     margin-left: 1%;
     margin-right: 1%;
+    position: relative;
   }
 
   /* Grid >> 16 Columns
@@ -457,10 +478,6 @@
     width: 100%;
   }
 
-  .panel-2col .panel-col-last {
-    margin-top: 15px;
-  }
-
   /* Header section
   ----------------------------------------------------------------------------------------------------*/
   #branding a {
@@ -468,14 +485,14 @@
   }
 
   #branding a img {
-    width: 100%;
     height: auto;
     max-width: 250px;
+    width: 100%;
   }
 
   #ting-search-form div:first-child {
-    width: 100%;
     padding: 0;
+    width: 100%;
   }
 
   #ting-search-form .form-text {
@@ -496,21 +513,6 @@
 
   #block-fb_social-activityfeed {
     display: none;
-  }
-
-  .tab-navigation-main-inner #ting-object .picture {
-    width: 30%;
-    min-width: 160px;
-  }
-
-  .tab-navigation-main-inner #ting-object .meta {
-    width: 62%;
-  }
-
-  #ting-object .facebook-like {
-    position: relative;
-    left: 0;
-    float: left;
   }
 
   #ting-object .details {
@@ -537,28 +539,25 @@
   }
 
   #ting-search-result ul li.display-book .picture {
-    min-width: 100px;
     width: 20%;
   }
 
   #ting-search-result ul li.display-book .record {
-    width: 77%;
+    width: auto;
+    float: none;
+    margin-left: 20%;
+    overflow: hidden;
   }
 
   #ting-search-result ul li.display-book .record .left {
-    width: 37%;
     float: left;
+    width: 37%;
   }
 
   #ting-search-result ul li.display-book .record .right {
-    width: 50%;
     float: right;
     min-width: 200px;
-  }
-
-  .feed-and-compare-front .display-book .right {
-    width: 60%;
-    float: right;
+    width: 50%;
   }
 
   .pane-recall-list-cart,
@@ -590,9 +589,9 @@
   #user-login .form-item input,
   #comment-form textarea,
   #comment-form input {
-    width: 100%;
     max-width: 540px;
     padding: 4px 0;
+    width: 100%;
   }
 
   .voxb input[type="submit"],
@@ -600,27 +599,32 @@
   #comment-form input[type="submit"] {
     margin: 0 -1px 0 0;
   }
-
-  #main-wrapper {
-    margin-bottom: 10px;
-  }
 }
 
-@media screen and (min-width:480px) and (max-width: 740px) {
+@media screen and (min-width: 480px) and (max-width: 740px) {
   #branding,
   #site-menu {
-    width: 50%;
     margin: 10px auto;
     padding: 0;
+    width: 50%;
   }
 
   #site-menu .block-menu {
     float: right;
   }
 
+  div.messages {
+    margin-bottom: 15px;
+  }
+
+  #sidebar-first {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   #search-box {
-    width: 100%;
     margin: 0 auto;
+    width: 100%;
   }
 
   #main-wrapper,
@@ -634,7 +638,7 @@
 
   ul.nice-menu-down li a,
   ul.nice-menu-down li.menuparent a {
-    font-size: 90%;
+    font-size: 12px;
   }
 
   #footer #footer-first {
@@ -643,6 +647,10 @@
 
   #footer #footer-first .block.block-block .content {
     margin-top: 5px;
+  }
+
+  #main-wrapper {
+    margin: 0;
   }
 }
 
@@ -663,27 +671,27 @@
   }
 
   #site-menu {
+    border-top: 2px solid #DBDDDA;
     height: 32px;
     padding-top: 8px;
-    border-top: 2px solid #DBDDDA;
   }
 
   #site-menu ul.menu li {
-    height: 32px;
-    float: left;
     background: none;
+    float: left;
+    height: 32px;
     margin: 0;
   }
 
   #site-menu ul.menu li a {
-    width: 100%;
-    height: 32px;
-    text-indent: 0;
     background: none;
-    text-align: center;
-    font: 20px/26px 'BebasNeueRegular', Helvetica, Arial, sans-serif;
     color: #8C938B;
+    font: 20px/26px 'BebasNeueRegular', Helvetica, Arial, sans-serif;
+    height: 32px;
+    text-align: center;
     text-decoration: none;
+    text-indent: 0;
+    width: 100%;
   }
 
   #site-menu ul.menu li:hover a,
@@ -696,14 +704,62 @@
   }
 
   ul.nice-menu-down li a,
-  ul.nice-menu-down li.menuparent a {
+  ul.nice-menu-down li.menuparent a,
+  ul.nice-menu-down ul li a,
+  ul.nice-menu-down li.menuparent ul li a {
     font-size: 85%;
   }
 
   .pane-recall-list-cart,
   .pane-publizon-loans-myloans {
-    width: 100%;
     margin: 0 0 10px 0;
+    width: 100%;
+  }
+
+  ul.nice-menu-down {
+    margin-left: 0;
+    margin-right: 0;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-top: 25px;
+  }
+
+  ul.nice-menu-down ul {
+    margin-top: 10px;
+  }
+
+  .panel-separator,
+  .panel-region-separator {
+    height: auto;
+  }
+
+  .ebog-author-portrait-descr {
+    max-height: 300px;
+    overflow-y: hidden;
+  }
+
+  #page .visible_item {
+    border-bottom: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 98%;
+    display: block;
+  }
+
+  .feed_and_compare_item.visible_item {
+    display: inline-block !important;
+  }
+
+  .section-ting .pane-netsound-review-2 {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 540px) {
+  .block-nice_menus h2 {
+    font-size: 85%;
+    left: 24px;
   }
 }
 
@@ -711,8 +767,8 @@
   ----------------------------------------------------------------------------------------------------*/
 .carousel-tabs ul {
   display: table;
-  width: 100%;
   table-layout: fixed;
+  width: 100%;
 }
 
 .carousel-tabs ul li {
@@ -731,4 +787,230 @@
 
 .ajax-loader {
   margin-left: -110px;
+}
+
+/* Rotate blocks
+  ----------------------------------------------------------------------------------------------------*/
+.rotated_container {
+  position: relative;
+}
+
+.rotated_item {
+  min-height: 50px;
+}
+
+.rotated_container .prev_item,
+.rotated_container .next_item {
+  background-image: url(../images/cycle.png);
+  display: block;
+  height: 36px;
+  margin-top: -18px;
+  position: absolute;
+  text-indent: -9999px;
+  top: 50%;
+  width: 36px;
+}
+
+.rotated_container .prev_item {
+  left: -20px;
+}
+
+.rotated_container .next_item {
+  background-position: 108px 0;
+  right: -20px;
+}
+
+/* Mobile Menu
+  ----------------------------------------------------------------------------------------------------*/
+#page .mobile-menu {
+  margin-top: 30px;
+}
+
+#page .mobile-menu > li {
+  position: static;
+}
+
+#page .mobile-menu > li a {
+  position: relative;
+  z-index: 100;
+}
+
+#page .mobile-menu ul {
+  margin: 0;
+  width: 100%;
+  border-top: 1px solid #fff;
+  -webkit-border-radius: 0 0 5px 5px;
+     -moz-border-radius: 0 0 5px 5px;
+          border-radius: 0 0 5px 5px;
+  overflow: hidden !important;
+}
+
+#page .mobile-menu ul li a {
+  text-decoration: none;
+}
+
+/* Rating
+  ----------------------------------------------------------------------------------------------------*/
+.touch .addRatingContainer .show_rating,
+.touch .addRatingContainer .show_rating + div .rating {
+  cursor: pointer;
+  height: 16px;
+  text-indent: -9999px;
+  width: 16px;
+}
+
+.touch .addRatingContainer .show_rating,
+.touch .addRatingContainer .show_rating + div .rating.star-off,
+.touch .addRatingContainer .show_rating + div .rating {
+  background: url(../img/star-inactive.png) 0 0 no-repeat;
+}
+
+.touch .addRatingContainer .show_rating + div .rating.star-black {
+  background: url(../img/star-active.png) 0 0 no-repeat;
+}
+
+.touch .show_rating {
+  display: block;
+  float: left;
+}
+
+.touch .show_rating + div {
+  display: none;
+  padding-left: 10px;
+  overflow: hidden;
+}
+
+.touch #ting-object .ratingsContainer {
+  overflow: hidden;
+}
+
+.touch .show_rating + div.active {
+  display: block;
+  float: left;
+}
+
+.touch .show_rating + div .rating {
+  margin-right: 3px;
+}
+
+.touch .addRatingContainer {
+  float: none;
+  margin: 5px 0;
+}
+
+.touch .ratingsContainer,
+.touch .addRatingContainer {
+  overflow: hidden;
+}
+
+.voxb,
+.touch .voxb {
+  padding-bottom: 10px;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+.touch .ajax_anim,
+.touch .ajax_anim.active {
+  display: none;
+}
+}
+
+@media screen and (max-width: 960px) {
+  #ting-object *,
+  html.js .resizable-textarea textarea,
+  #ting-object *:before,
+  html.js .resizable-textarea textarea:before,
+  #ting-object *:after,
+  html.js .resizable-textarea textarea:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  #edit-review-content-wrapper .resizable-textarea {
+    width: 100%;
+  }
+
+  #ting-object h1.book-title {
+    width: auto;
+  }
+
+  .section-ting #ting-object .facebook-like {
+    float: none;
+    right: auto;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  .tab-navigation-main-inner #ting-object .picture {
+    width: 160px;
+    float: left;
+  }
+
+  .tab-navigation-main-inner #ting-object .picture img {
+    width: 160px;
+    height: auto;
+  }
+
+  .tab-navigation-main-inner #ting-object .meta {
+    width: auto;
+    overflow: hidden;
+    float: none;
+    display: block;
+    padding-left: 10px;
+  }
+
+  #ting-object .author {
+    clear: none;
+  }
+
+  #ting-object .inner > div,
+  #ting-object .inner > h1 {
+    margin: 0 0 10px 0;
+    padding: 0;
+  }
+
+  .feed_and_compare_item {
+    width: 100%;
+  }
+
+  .pane-front .feed-and-compare-front .record,
+  .pane-ebog-author-portrait-0 .ebog-author-portrait .ebog-author-portrait-descr {
+    width: auto;
+    float: none;
+    overflow: hidden;
+  }
+
+  h2.pane-title {
+    margin-bottom: 0;
+  }
+
+  .panel-region-separator {
+    margin-top: 15px;
+  }
+
+  .section-ting .panel-region-separator {
+    margin-top: 0;
+  }
+
+  #main-content-container {
+    margin: 25px auto;
+  }
+
+  #ting-object #main {
+    margin-top: 0;
+  }
+
+  .collapsible,
+  .pane-title + .pane-content {
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .feed-and-compare-front .display-book .right {
+    width: 140px;
+  }
 }

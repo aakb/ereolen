@@ -27,6 +27,10 @@
   float:left;
 }
 
+.ajax_anim.active {
+  display: block;
+}
+
 #edit-rating:after, .ajax_anim:after, #voxbItem:after {
   clear: both;
   float: none;

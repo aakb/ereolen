@@ -57,7 +57,7 @@
   function carousel_activate() {
     carousel.elastislide({
       imageW : 120,
-      minItems : 4,
+      minItems : 2,
       margin : 10,
       onClick : function(item) {
         var url = item.find('.carousel-item-image').attr('href');
@@ -105,7 +105,6 @@
         carousel_init(0);
       }
     }, true).listen();
-
 
     // Add click event to tabs.
     $('.carousel-tabs li').click(function(e) {
