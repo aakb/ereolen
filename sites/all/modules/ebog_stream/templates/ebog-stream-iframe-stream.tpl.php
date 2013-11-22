@@ -7,8 +7,8 @@
     <meta content="no-cache, no-store" http-equiv="cache-control" />
     <meta content="no-cache" http-equiv="pragma" />
     <meta content="-1" http-equiv="expires" />
-    <link rel="stylesheet" type="text/css" href="https://reader.pubhub.dk/scripts/reader-1.3.3/css">
-    <script type="text/javascript" src="https://reader.pubhub.dk/scripts/reader-1.3.3/js"></script>
+    <link rel="stylesheet" type="text/css" href="https://reader.pubhub.dk/scripts/reader-1.3.4/css">
+    <script type="text/javascript" src="https://reader.pubhub.dk/scripts/reader-1.3.4/js"></script>
     <script type="text/javascript">
       var reader;
         function InitReader() {
