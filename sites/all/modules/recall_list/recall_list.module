@@ -37,21 +37,23 @@ function recall_list_menu() {
 /**
  * Modify the contents of a given users netsound cart.
  *
- * @param type $isbn
- *  Product identifier ISBN.
- * @param type $op
- *  Operation to preform on the cart.
+ * @param string $isbn
+ *   Product identifier ISBN.
+ * @param string $op
+ *   Operation to preform on the cart.
+ * @param bool $redirect
+ *   If TRUE the function will call drupal_goto().
  */
-function recall_list_modify($isbn, $op, $rewrite = TRUE) {
+function recall_list_modify($isbn, $op, $redirect = TRUE) {
   // If the current user is valid and logged in to Publizon.
   global $user;
   if ($user->uid != 0) {
     $product = new PublizonProduct($isbn);
 
-    // Check that we got a ting object
+    // Check that we got a ting object.
     $record = array(
-        'uid' => $user->uid,
-        'isbn' => $isbn,
+      'uid' => $user->uid,
+      'isbn' => $isbn,
     );
     switch ($op) {
       case 'add':
@@ -76,7 +78,7 @@ function recall_list_modify($isbn, $op, $rewrite = TRUE) {
         break;
     }
     _recall_list_cache_clear($user->uid);
-    if ($rewrite) {
+    if ($redirect) {
       drupal_goto();
     }
   }
@@ -151,7 +153,8 @@ function recall_list_block($op = 'list', $delta = 0, $edit = array()) {
             // HACK XXXX, the objects saved in the cart may not longer exists
             // in the datawell. So if they do not have ISBN number, we have to
             // remove them from the cart.
-            if (empty($product->teaser_link)) {
+            $object = $product->getTingObject();
+            if (!$object || $product->teaser_link) {
               recall_list_modify($row['isbn'], 'delete', FALSE);
               continue;
             }
