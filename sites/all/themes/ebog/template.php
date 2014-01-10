@@ -14,12 +14,12 @@ function ebog_theme(&$existing, $type, $theme, $path) {
  * Add extra information form elib to the ting object.
  */
 function ebog_preprocess_ting_object(&$vars) {
-  $isbn = $vars[object]->record['dc:identifier']['oss:PROVIDER-ID'][0];
+  $isbn = $vars['object']->record['dc:identifier']['oss:PROVIDER-ID'][0];
 
   // Override ting object page title.
   drupal_set_title(check_plain($vars['object']->title . ' ' . t('af') . ' ' . $vars['object']->creators_string));
 
-  // Create the author field
+  // Create the author field.
   $vars['author'] = publizon_get_authors($vars['object']);
 
   // Load the product.
@@ -32,6 +32,10 @@ function ebog_preprocess_ting_object(&$vars) {
     // Get ebook sample link.
     if (!empty($product->teaser_link)) {
       $vars['elib_sample_link'] = 'stream/' . $isbn . '/preview/';
+    }
+
+    if ($product->getFormat()) {
+      $vars['elib_format'] = $product->getFormat();
     }
 
     // Check if the book is loaned by the user.
@@ -73,7 +77,7 @@ function ebog_preprocess_ting_search_collection(&$vars) {
       // Get cover image.
       $vars['elib'][$isbn]['elib_book_cover'] = $product->getCover('170_x');
 
-      // Get ebook sample link.
+      // Get e-book sample link.
       if (!empty($product->teaser_link)) {
         $vars['elib'][$isbn]['elib_sample_link'] = 'stream/' . $isbn . '/preview/';
       }
@@ -95,17 +99,12 @@ function ebog_preprocess_ting_search_collection(&$vars) {
 }
 
 /**
- * Override or insert variables into the page templates.
- *
- * @param $vars
- *   An array of variables to pass to the theme template.
- * @param $hook
- *   The name of the template being rendered ("page" in this case.)
+ * Implements hook_preprocess_page().
  */
 function ebog_preprocess_page(&$vars, $hook) {
   global $user;
 
-  array_pop($vars['primary_links']) ;
+  array_pop($vars['primary_links']);
   if ($user->uid != 0) {
     $vars['primary_links']['account-link'] = array(
       'href'  => 'min_side',
@@ -115,7 +114,7 @@ function ebog_preprocess_page(&$vars, $hook) {
   else {
     $vars['primary_links']['login-link'] = array(
       'href'  => 'user',
-      'title' => t('Login')
+      'title' => t('Login'),
     );
   }
 
@@ -128,7 +127,7 @@ function ebog_preprocess_page(&$vars, $hook) {
 
   if (arg(3) == 'stream' || arg(3) == 'download' || (isset($_GET['clean']) && $_GET['clean'] == 1)) {
     $vars['template_files'] = array('page-clean');
-    $vars['css']['all']['theme']['sites/all/themes/ebog/css/style.css'] = false;
+    $vars['css']['all']['theme']['sites/all/themes/ebog/css/style.css'] = FALSE;
   }
 }
 
