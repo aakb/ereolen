@@ -95,7 +95,7 @@ if (module_exists('ding_voxb')) {
           <?php } ?>
         </div>
 
-        <div class="various">
+        <div class="various" style="display:none;">
           <?php print theme('item_list', array($object->type), t('Type') . ':&nbsp;', 'span', array('class' => 'type')); ?>
           <?php if (!empty($object->record['dc:format'][''])) { ?>
             <?php print theme('item_list', $object->record['dc:format'][''], t('Format'), 'span', array('class' => 'format'));?>
