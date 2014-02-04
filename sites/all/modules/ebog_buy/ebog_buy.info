@@ -1,0 +1,6 @@
+name = Ebog buy
+description = Display available resellers for certain ebooks.
+version = 0.1
+core = 6.x
+package = INLEAD
+dependencies[] = ebog_download

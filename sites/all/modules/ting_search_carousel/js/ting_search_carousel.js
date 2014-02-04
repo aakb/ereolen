@@ -56,8 +56,8 @@
 
   function carousel_activate() {
     carousel.elastislide({
-      imageW : 120,
-      minItems : 4,
+      imageW : 104,
+      minItems : 2,
       margin : 10,
       onClick : function(item) {
         var url = item.find('.carousel-item-image').attr('href');
@@ -106,7 +106,6 @@
       }
     }, true).listen();
 
-
     // Add click event to tabs.
     $('.carousel-tabs li').click(function(e) {
       e.preventDefault();
@@ -115,6 +114,11 @@
       var current = $(this);
       current.parent().find('li').removeClass('active');
       current.addClass('active');
+
+      // Put clicked item at first position
+      if ($(document).width() <= 480 - (window.innerWidth - $(document).width())) {
+        current.insertBefore('.carousel-tabs li:first');
+      }
 
       // Remove current content and show spinner.
       $('.carousel-inner .carousel-runner').html('');

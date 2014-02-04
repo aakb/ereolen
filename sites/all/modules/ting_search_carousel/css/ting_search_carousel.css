@@ -78,13 +78,17 @@
   vertical-align: top;
 }
 
+.carousel-inner ul li img {
+  max-width: 104px;
+}
+
 .carousel-wrapper {
   background-color: rgba(0, 0, 0, 0.1);
   zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#1A000000,endColorstr=#1A000000);
   text-align: center;
   position: relative;
-  min-height: 188px;
+  min-height: 140px;
   padding: 20px;
 }
 .carousel-wrapper .ajax-loader {

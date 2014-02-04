@@ -7,10 +7,15 @@
   var clicked = null;
   var button = null;
   var popup_buttons = null;
-  var ok_button = Drupal.t('Ok');
-  var login_button = Drupal.t('Login');
-  var cancel_button = Drupal.t('Cancel');
-  var download_button = Drupal.t('Proceed to download');
+  var translatable = {
+    ok_label: Drupal.t('Ok'),
+    login_label: Drupal.t('Login'),
+    cancel_label: Drupal.t('Cancel'),
+    close_label: Drupal.t('Close'),
+    download_label: Drupal.t('Proceed to download'),
+    bookmark_label: Drupal.t('Remember'),
+    prices_label: Drupal.t('Prices')
+  };
 
   // Handle clicked loan link, those matching 'ting/object/%/download' pattern
   $(document).ready(function() {
@@ -52,7 +57,7 @@
 
           if (response.status == false) {
             popup_buttons = {};
-            popup_buttons[ok_button] = function() {
+            popup_buttons[translatable.close_label] = function() {
               $('#ting-download-popup').dialog('close');
             }
 
@@ -74,7 +79,7 @@
             $('#edit-submit', content).remove();
 
             // Add action to the login dialog button.
-            popup_buttons[login_button] = function() {
+            popup_buttons[translatable.login_label] = function() {
               // Add ajax loader to replace buttons.
               button = $('#ting-login-popup').parents('.ui-dialog:first').find('button');
               button.css('visibility', 'hidden');
@@ -129,7 +134,7 @@
               return false;
             }
 
-            popup_buttons[cancel_button] = function() {
+            popup_buttons[translatable.cancel_label] = function() {
               // Close the form an remove it from the dom or close will not work
               // if displayed once more.
               $('#ting-login-popup').dialog('close');
@@ -149,14 +154,14 @@
           }
 
           popup_buttons = {};
-          popup_buttons[download_button] = function() {
+          popup_buttons[translatable.download_label] = function() {
             button = $('#ting-download-popup').parents('.ui-dialog:first').find('button');
             button.css('visibility', 'hidden');
             button.parent().append('<div class="ajax-loader"></div>');
             check_rules();
           }
 
-          popup_buttons[cancel_button] = function() {
+          popup_buttons[translatable.cancel_label] = function() {
             // Close the form an remove it from the dom or close will not work
             // if displayed once more.
             $('#ting-download-popup').dialog('close');
@@ -187,10 +192,39 @@
             button.parent().find('.ajax-loader').remove();
             $('#ting-download-popup').dialog('close');
             $('#ting-download-popup-info').remove();
+
             var options = {};
-            if (response.status == false) {
+
+            if (response.status === false) {
               popup_buttons = {};
-              popup_buttons[ok_button] = function() {
+
+              var loan_disabled = (response.code === 120 || response.code === 125 || response.code === 126);
+              // In case the buy functionality is enabled.
+              if (response.buy_enabled === true && loan_disabled === true) {
+                popup_buttons[translatable.bookmark_label] = function() {
+                  window.location = $('.recall-list-add').attr('href');
+                  button = $('#ting-download-popup-info').parents('.ui-dialog:first').find('button');
+                  button.css('visibility', 'hidden');
+                  button.parent().append('<div class="ajax-loader"></div>');
+                }
+
+                popup_buttons[translatable.prices_label] = function() {
+                  button = $('#ting-download-popup-info').parents('.ui-dialog:first').find('button');
+                  button.css('visibility', 'hidden');
+                  button.parent().append('<div class="ajax-loader"></div>');
+
+                  lookup_retailers(function(response) {
+                    button.css('visibility', 'visible');
+                    button.parent().find('.ajax-loader').remove();
+                    $('#ting-download-popup').dialog('close');
+                    $('#ting-download-popup-info').remove();
+
+                    show_retailers(response);
+                  });
+                }
+              }
+
+              popup_buttons[translatable.close_label] = function() {
                 $('#ting-download-popup-info').dialog('close');
               }
 
@@ -219,7 +253,7 @@
         $('#ting-download-popup-error').remove();
 
         popup_buttons = {};
-        popup_buttons[ok_button] = function() {
+        popup_buttons[translatable.ok_label] = function() {
           $('#ting-download-popup-error').dialog('close');
         }
 
@@ -235,5 +269,62 @@
 
       return false;
     }
+
+    // Retrieve the markup for resellers.
+    var lookup_retailers = function(callback) {
+      $.ajax({
+        type : 'post',
+        url : href + '/buy',
+        dataType : 'json',
+        success: function(response) {
+          if ($.isFunction(callback)) {
+            callback(response);
+          }
+        }
+      });
+    }
+
+    // Populate the popup with reseller and item information.
+    var show_retailers = function(data) {
+      var buttons = {};
+
+
+      // List of elements classes to be kept.
+      var classes = ['book-title', 'author', 'abstract'];
+      var cls = '';
+      var resellers_markup = (data.status === true) ? $(data.resellers_markup) : '';
+      var ting_object_markup = (data.status === true) ? $(data.ting_object_markup) : '';
+      var content = '';
+
+      content = $('<div id="ting-object-popup-details" />');
+
+      ting_object_markup.find('.meta .inner').children().each(function() {
+        cls = $(this).attr('class');
+
+        // -1 means the value is NOT present in the array of values.
+        if ($.inArray(cls, classes) === -1) {
+          ting_object_markup.find('.' + cls).remove();
+        }
+      });
+
+      content.append(ting_object_markup);
+      content.find('#ting-object').after(resellers_markup);
+
+      buttons[translatable.close_label] = function() {
+        $('#ting-download-popup-resellers').dialog('close');
+      }
+
+      var popup = $('<div id="ting-download-popup-resellers" title="' + Drupal.t('Prices') + '">' + content.html() + '</div>');
+      popup.dialog({
+        modal: true,
+        width: 'auto',
+        height: 'auto',
+        buttons: buttons
+      });
+    }
+
+    $('.item-reseller .buy button').live('click', function() {
+      $('#ting-download-popup-resellers').dialog('close');
+    });
   });
 })(jQuery);

@@ -449,8 +449,7 @@ voxb h3 {
   width: 120px;
 }
 
-.view-anmeldelser .field-field-book .record,
-.pane-front .feed-and-compare-front .record {
+.view-anmeldelser .field-field-book .record {
   float: left;
   width: 198px;
 }
@@ -534,17 +533,13 @@ voxb h3 {
   margin-right: 12px;
 }
 
+.feed_and_compare_item .display-book .left {
+  width: 130px;
+}
+
 .display-book .right {
   width: 200px;
   clear: none;
-}
-
-.feed-and-compare-front .display-book .right {
-  width: 140px;
-}
-
-.feed-and-compare-page .display-book .right {
-  width: 450px;
 }
 
 .display-book .picture img {
@@ -596,7 +591,7 @@ voxb h3 {
 
 .addRatingContainer .rating {
   width: 13px;
-  height: 12px !important;
+  height: 12px;
   background: url("../images/star.png") no-repeat scroll 0 -12px transparent;
   float: left;
   overflow: hidden;
@@ -980,7 +975,7 @@ input[type=submit]:hover {
 #ting-object .facebook-like {
   float: right;
   position: absolute;
-  left: 84%;
+  right: -30px;
   top: 0;
 }
 
@@ -1041,6 +1036,10 @@ ul.nice-menu-down ul {
   margin-top: 20px;
   margin-right: 10px;
   padding-left: 65px;
+}
+
+ul.nice-menu-down ul {
+  margin: 1px;
 }
 
 ul.nice-menu-down {
@@ -1122,6 +1121,14 @@ ul.nice-menu-down li.over a {
   border-radius: 4px 4px 0 0;
 }
 
+.block-ebog_author_portrait .ebog-author-portrait .ebog-author-portrait-descr {
+  width: 125px;
+}
+
+.pane-ebog-author-portrait-0 .ebog-author-portrait .ebog-author-portrait-descr {
+  width: 155px;
+}
+
 .block-ebog_embed_video {
   position: relative;
 }
@@ -1190,4 +1197,22 @@ ul.nice-menu-down li.over a {
 
 #read-offline {
   margin-right: 4px;
+}
+
+#ting-object {
+  overflow: hidden;
+  width: 100%;
+}
+
+.collapsible-title {
+  cursor: pointer;
+  background: url(../img/expanded.png) 100% 50% no-repeat;
+}
+
+.collapsible-title.expanded {
+  background: url(../img/collapsed.png) 100% 50% no-repeat;
+}
+
+#page .container-16 .collapsible-title {
+  margin: 5px 0;
 }
