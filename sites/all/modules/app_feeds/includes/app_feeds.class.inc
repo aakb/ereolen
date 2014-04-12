@@ -76,7 +76,7 @@ class AppFeed {
    */
   public function send() {
     drupal_set_header('Content-Type', 'text/xml; charset=UTF-8');
-    drupal_set_header('Content-Type', 'no-store, must-revalidate, no-cache');
+    drupal_set_header('Cache-Control', 'no-store, must-revalidate, no-cache');
     echo $this->feed->saveXML();
     exit;
   }
