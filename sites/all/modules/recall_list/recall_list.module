@@ -41,20 +41,28 @@ function recall_list_menu() {
  *   Product identifier ISBN.
  * @param string $op
  *   Operation to preform on the cart.
- * @param bool $redirect
- *   If TRUE the function will call drupal_goto().
+ * @param bool $rewrite
+ *   If TRUE drupal_goto is called, default to TRUE.
+ * @param object $user
+ *   User object used to defined the users list that is modified.
+ *
+ * @return mixed
+ *   The result of the operation, if it fails its FALSE.
  */
-function recall_list_modify($isbn, $op, $redirect = TRUE) {
-  // If the current user is valid and logged in to Publizon.
-  global $user;
+function recall_list_modify($isbn, $op, $rewrite = TRUE, $user = NULL) {
+  if (is_null($user)) {
+    global $user;
+  }
   if ($user->uid != 0) {
     $product = new PublizonProduct($isbn);
 
-    // Check that we got a ting object.
+    // Check that we got a ting object
     $record = array(
-      'uid' => $user->uid,
-      'isbn' => $isbn,
+        'uid' => $user->uid,
+        'isbn' => $isbn,
     );
+
+    $result = FALSE;
     switch ($op) {
       case 'add':
         $record['timestamp'] = time();
@@ -71,15 +79,18 @@ function recall_list_modify($isbn, $op, $redirect = TRUE) {
         break;
 
       case 'delete':
-        db_query('DELETE FROM {recall_list}
+        $result = db_query('DELETE FROM {recall_list}
                         WHERE uid = %s
                           AND isbn = "%s"', $user->uid, $isbn);
         drupal_set_message(t('"!book" have been removed from your recall list', array('!book' => $product->title)));
         break;
     }
     _recall_list_cache_clear($user->uid);
-    if ($redirect) {
+    if ($rewrite) {
       drupal_goto();
+    }
+    else {
+      return $result;
     }
   }
 }
@@ -94,8 +105,7 @@ function recall_list_add_link($isbn) {
   $options = array(
     'query' => drupal_get_destination(),
     'attributes' => array(
-      'class' => 'recall-list-add',
-      'action' => 'add',
+      'class' => 'recall-list-add'
     )
   );
   return l(t('Remember'), 'recall_list/' . $isbn . '/add', $options);
@@ -111,8 +121,7 @@ function recall_list_delete_link($isbn) {
   $options = array(
     'query' => drupal_get_destination(),
     'attributes' => array(
-      'class' => 'recall-list-add',
-      'action' => 'remove',
+      'class' => 'recall-list-add'
     )
   );
   return l(t('Remove'), 'recall_list/' . $isbn . '/delete', $options);
@@ -146,15 +155,13 @@ function recall_list_block($op = 'list', $delta = 0, $edit = array()) {
         $products = array();
         $result = db_query('SELECT DISTINCT isbn FROM {recall_list} WHERE uid = %d', array('%d' => $user->uid));
         while ($row = db_fetch_array($result)) {
-
           try {
             $product = new PublizonProduct($row['isbn']);
 
             // HACK XXXX, the objects saved in the cart may not longer exists
             // in the datawell. So if they do not have ISBN number, we have to
             // remove them from the cart.
-            $object = $product->getTingObject();
-            if ($object === FALSE || !$product->teaser_link) {
+            if (empty($product->teaser_link)) {
               recall_list_modify($row['isbn'], 'delete', FALSE);
               continue;
             }
