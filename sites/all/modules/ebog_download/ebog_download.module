@@ -131,10 +131,16 @@ function ebog_download_loan_initial($isbn) {
       $status = array(
         'status' => FALSE,
         'title' => t('Error'),
+        'code' => $e->getCode(),
+        'buy_enabled' => FALSE,
         'content' => theme('ebog_download_error', array(
-          'message' => t('@message', array('@message' => $e->getMessage()))
+          'message' => t('@message', array('@message' => $e->getMessage())) . '<p>' . t('But you can buy it.') . '</p>',
         )),
       );
+
+      if (module_exists('ebog_buy')) {
+        $status['buy_enabled'] = TRUE;
+      }
     }
   }
 
