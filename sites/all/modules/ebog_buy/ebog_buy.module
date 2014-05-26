@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_menu.
+ * Implements hook_menu().
  */
 function ebog_buy_menu() {
   $menu = array();
@@ -37,7 +37,7 @@ function ebog_buy_menu() {
 }
 
 /**
- * Implementation of hook_theme.
+ * Implements hook_theme().
  */
 function ebog_buy_theme($existing, $type, $theme, $path) {
   $hooks = array();
@@ -58,7 +58,9 @@ function ebog_buy_theme($existing, $type, $theme, $path) {
 /**
  * Request reseller list and throw the response into the script.
  *
- * @param $isbn
+ * Returns a JSON result and ends execution.
+ *
+ * @param string $isbn
  *   The book identifier.
  */
 function ebog_buy_get_resellers($isbn = '') {
@@ -72,22 +74,24 @@ function ebog_buy_get_resellers($isbn = '') {
   $response['status'] = count($response) > 0 ? TRUE : FALSE;
 
   drupal_json($response);
+
   exit(0);
 }
 
 /**
  * Ask the web-service for reseller data for certain book.
  *
- * @param $isbn
+ * @param string $isbn
  *   The book identifier.
- * @param $ws_link
+ * @param string $ws_link
  *   Web-service link, where request are sent to.
- * @param $ws_key
+ * @param string $ws_key
  *   Web-service secret key, used for authentication.
- * @return
+ *
+ * @return string
  *   Web-service response, expected in JSON format with resellers information.
  */
-function ebog_buy_send_request($isbn = '', $ws_link = '', $ws_key = '') {
+function ebog_buy_send_request($isbn, $ws_link, $ws_key) {
   $resellers = '{}';
 
   if (!empty($ws_link) && !empty($isbn) && !empty($ws_key)) {
@@ -96,7 +100,7 @@ function ebog_buy_send_request($isbn = '', $ws_link = '', $ws_key = '') {
     curl_setopt($ch, CURLOPT_URL, $ws_link . $isbn);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-      'x-auth-secret:' . $ws_key
+      'x-auth-secret:' . $ws_key,
     ));
 
     $response = curl_exec($ch);
@@ -131,9 +135,10 @@ function _ebog_sort_resellers($a, $b) {
 /**
  * Generate html markup of available resellers.
  *
- * @param $data
+ * @param array $data
  *   An array with resellers information.
- * @return
+ *
+ * @return string
  *   Themed html markup.
  */
 function ebog_buy_get_resellers_markup($data = array()) {

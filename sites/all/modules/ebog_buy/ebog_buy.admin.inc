@@ -8,9 +8,10 @@
  * Administrative settings form.
  *
  * @ingroup forms
- * @see ebog_buy_admin_settings_form_validate().
  *
- * @return
+ * @see ebog_buy_admin_settings_form_validate()
+ *
+ * @return array
  *   Form structure.
  */
 function ebog_buy_admin_settings_form() {
@@ -38,7 +39,8 @@ function ebog_buy_admin_settings_form() {
  * Custom validation for administrative settings form.
  *
  * @ingroup forms
- * @see ebog_buy_admin_settings_form().
+ *
+ * @see ebog_buy_admin_settings_form()
  */
 function ebog_buy_admin_settings_form_validate(&$form, &$form_state) {
   if (!valid_url($form_state['values']['ebog_buy_purchase_ws'], TRUE)) {
