@@ -68,12 +68,17 @@ function ebog_buy_get_resellers($isbn = '') {
   $ws_key = variable_get('ebog_buy_secret_code', '');
 
   $resellers = json_decode(ebog_buy_send_request($isbn, $ws_link, $ws_key));
-  usort($resellers, '_ebog_sort_resellers');
+  if (json_last_error() === JSON_ERROR_NONE) {
+    usort($resellers, '_ebog_sort_resellers');
 
-  $response['markup'] = ebog_buy_get_resellers_markup($resellers);
-  $response['status'] = count($response) > 0 ? TRUE : FALSE;
+    $response['markup'] = ebog_buy_get_resellers_markup($resellers);
+    $response['status'] = count($response) > 0 ? TRUE : FALSE;
 
-  drupal_json($response);
+    drupal_json($response);
+  }
+  else {
+    watchdog('Ebog buy', 'Error validating JSON', WATCHDOG_ERROR);
+  }
 
   exit(0);
 }

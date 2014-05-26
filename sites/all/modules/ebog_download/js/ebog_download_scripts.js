@@ -314,7 +314,8 @@
         $('#ting-download-popup-resellers').dialog('close');
       };
 
-      $('<div id="ting-download-popup-resellers" title="' + Drupal.t('Prices') + '">' + content.html() + '</div>').dialog({
+      var popup = $('<div id="ting-download-popup-resellers" title="' + Drupal.t('Prices') + '">' + content.html() + '</div>');
+      popup.dialog({
         modal: true,
         width: 'auto',
         height: 'auto',

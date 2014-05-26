@@ -11,7 +11,7 @@
   <p class="logo">
     <img height="50" src="<?php print $data['seller']->Logo; ?>" alt="<?php print $data['seller']->Name; ?>" title="<?php print $data['seller']->Name; ?>" />
   </p>
-  <?php ;endif ?>
+  <?php endif; ?>
   <p class="price"><?php print t('Price: @price', array('@price' => $data['price'])); ?></p>
   <p class="buy"><a target="_blank" href="<?php print $data['url']; ?>"><button><?php print t('Buy'); ?></button></a></p>
 </div>
