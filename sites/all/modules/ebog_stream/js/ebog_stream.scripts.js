@@ -95,11 +95,11 @@
     if ($('#ebog-stream-popup .messages').length) {
       $('#ebog-stream-popup .messages').fadeOut('fast', function () {
         $(this).remove();
-        $('#elib-popup-login-form #edit-name-wrapper').prepend(response.content);
+        $('#ebog-download-login-form #edit-name-wrapper').prepend(response.content);
       });
     }
     else {
-      $('#elib-popup-login-form #edit-name-wrapper').prepend(response.content);
+      $('#ebog-download-login-form #edit-name-wrapper').prepend(response.content);
     }
   }
 
@@ -138,7 +138,7 @@
         if (response.status === 'login') {
           var buttons = {};
           buttons[login_button] = function() {
-            var form = $('#elib-popup-login-form');
+            var form = $('#ebog-download-login-form');
             var form_values = form.formSerialize();
             var button = $('#ebog-stream-popup').parents('.ui-dialog:first').find('button');
 

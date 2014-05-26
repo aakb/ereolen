@@ -86,12 +86,12 @@
               button.parent().append('<div class="ajax-loader"></div>');
 
               // Collect form values.
-              var data = $('#elib-popup-login-form').formSerialize();
+              var data = $('#ebog-download-login-form').formSerialize();
 
               // Make login ajax callback.
               $.ajax({
                 type : 'POST',
-                url : $('#elib-popup-login-form').attr('action'),
+                url : $('#ebog-download-login-form').attr('action'),
                 dataType : 'json',
                 data: data,
                 success : function(response) {
@@ -102,11 +102,11 @@
                     if ($('#ting-login-popup .messages').length) {
                       $('#ting-login-popup .messages').fadeOut('fast', function () {
                         $(this).remove();
-                        $('#elib-popup-login-form #edit-name-wrapper').prepend(response.content);
+                        $('#ebog-download-login-form #edit-name-wrapper').prepend(response.content);
                       });
                     }
                     else {
-                      $('#elib-popup-login-form #edit-name-wrapper').prepend(response.content);
+                      $('#ebog-download-login-form #edit-name-wrapper').prepend(response.content);
                     }
 
                     // Enable login buttons and remove ajax loader.

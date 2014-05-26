@@ -1,14 +1,13 @@
 <?php
 /**
  * @file
- *
  * Streaming reader backend and loaning logic here.
  */
 
-define('EREOLEN_KEY', '48BD7B7E-BF4A-47A7-A369-59A6375D8B58');
+define('EBOG_STREAM_EREOLEN_KEY', '48BD7B7E-BF4A-47A7-A369-59A6375D8B58');
 
 /**
- * Implementation of hook_menu.
+ * Implements hook_menu().
  */
 function ebog_stream_menu() {
   $items = array();
@@ -59,7 +58,7 @@ function ebog_stream_menu() {
 }
 
 /**
- * Implementation of hook_theme.
+ * Implements hook_theme().
  */
 function ebog_stream_theme() {
   $hooks = array();
@@ -69,7 +68,7 @@ function ebog_stream_theme() {
     'template' => 'templates/ebog-stream-iframe-stream',
   );
 
-    $hooks['ebog_stream_iframe_stream_preview'] = array(
+  $hooks['ebog_stream_iframe_stream_preview'] = array(
     'arguments' => array('vars' => NULL),
     'template' => 'templates/ebog-stream-iframe-stream-preview',
   );
@@ -82,11 +81,11 @@ function ebog_stream_theme() {
  * Add information about the order to current session.
  *
  * @param int $book_id
- *  The books ISBN number.
+ *   The books ISBN number.
  * @param int $order_number
- *  The Publizon order number.
+ *   The Publizon order number.
  * @param string $title
- *  The books title.
+ *   The books title.
  */
 function ebog_stream_set_session($book_id, $order_number, $internal_order_number, $title) {
   if (!isset($_SESSION['ebog_stream'])) {
@@ -104,10 +103,10 @@ function ebog_stream_set_session($book_id, $order_number, $internal_order_number
  * Get information about the a book from current session.
  *
  * @param int $book_id
- *  The books ISBN number.
+ *   The books ISBN number.
  * @return mixed array
- *  Returns the session_url and order_number in an array or FALSE if it do not
- *  exists.
+ *   Returns the session_url and order_number in an array or FALSE if it do not
+ *   exists.
  */
 function ebog_stream_get_session($book_id) {
   if (!isset($_SESSION['ebog_stream'])) {
@@ -143,7 +142,7 @@ function ebog_stream_iframe_stream_preview($isbn) {
 /**
  * Loan a certain book.
  *
- * @param type $book_id
+ * @param string $book_id
  *   Book isbn.
  */
 function ebog_stream_try_loan($book_id) {
@@ -192,14 +191,14 @@ function ebog_stream_try_loan($book_id) {
 /**
  * Check for existing loan.
  *
- * @param type $book_id
- *  Book isbn.
+ * @param string $book_id
+ *   Book isbn.
  * @param bool $js
- *  If TRUE returns json array else return bool.
+ *   If TRUE returns json array else return bool.
  *
  * @return mixed
- *  If json is not select to be return FALSE or an array with order number and
- *  internal order number.
+ *   If json is not select to be return FALSE or an array with order number and
+ *   internal order number.
  */
 function ebog_stream_get_loan($book_id, $js = TRUE) {
   $response = array();
@@ -256,7 +255,7 @@ function ebog_stream_get_loan($book_id, $js = TRUE) {
  *
  * Look for user login or go to loan/stream.
  *
- * @param type $book_id
+ * @param string $book_id
  *   Book isbn.
  */
 function ebog_stream_stream($book_id) {
@@ -267,7 +266,7 @@ function ebog_stream_stream($book_id) {
   }
   else {
     // Perform login.
-    $form = drupal_get_form('elib_popup_login_form');
+    $form = drupal_get_form('ebog_download_login_form');
     $response = array(
       'status' => 'login',
       'title' => t('Login'),
@@ -282,7 +281,7 @@ function ebog_stream_stream($book_id) {
 /**
  * Reader script authentication handler.
  *
- * @param $order_number
+ * @param string $order_number
  *   Order ID, returned by Publizon WS.
  */
 function ebog_stream_check_auth($order_number) {
@@ -292,13 +291,13 @@ function ebog_stream_check_auth($order_number) {
   $library = publizon_get_library($retailer_id);
   $library_key = md5($library['retailer_key_code']);
 
-  $response = file_get_contents('http://streaming.bogskyen.dk/publicstreaming/v1/' . $order_number . '/session/' . EREOLEN_KEY . '/' . $retailer_id . '/' . $library_key);
+  $response = file_get_contents('http://streaming.bogskyen.dk/publicstreaming/v1/' . $order_number . '/session/' . EBOG_STREAM_EREOLEN_KEY . '/' . $retailer_id . '/' . $library_key);
 
   echo $response;
 }
 
 /**
- * Implementation of hook_preprocess_page.
+ * Implements hook_preprocess_page().
  *
  * Inject the streaming script on certain pages.
  */
@@ -323,7 +322,7 @@ function ebog_stream_preprocess_publizon_actions(&$vars) {
       $link = l(t('Read'), 'stream/' . $isbn, array('query' => array('cvo' => $order_numbers['internal_order_number']), 'html' => TRUE, 'attributes' => array('class' => 'reader-init .cvo', 'target' => '_blank')));
     }
 
-    $vars['actions'][] =  array(
+    $vars['actions'][] = array(
       '#link' => $link,
       '#class' => 'download',
       '#weight' => 1,
