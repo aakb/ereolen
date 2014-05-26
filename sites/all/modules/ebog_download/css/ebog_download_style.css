@@ -38,3 +38,41 @@
   position: absolute;
   top: 10px;
 }
+
+#ting-download-popup-resellers {
+  max-width: 350px;
+}
+
+#ting-download-popup-resellers #ting-object .meta,
+#ting-download-popup-resellers .item-resellers {
+  clear: both;
+  float: none;
+}
+
+#ting-download-popup-resellers .item-resellers hr {
+  margin: 5px 0 5px 0;
+}
+
+#ting-download-popup-resellers #ting-object .meta .inner .book-title {
+  width: auto;
+}
+
+#ting-download-popup-resellers #ting-object .meta .inner > div,
+#ting-download-popup-resellers .item-resellers .price,
+#ting-download-popup-resellers .item-resellers .buy {
+  display: inline;
+}
+
+#ting-download-popup-resellers #ting-object .picture {
+  display: block;
+  float: none;
+}
+
+#ting-download-popup-resellers #ting-object .picture img {
+  width: 65px;
+}
+
+#ting-download-popup-resellers #ting-object .meta .inner .abstract,
+#ting-download-popup-resellers .item-resellers .logo {
+  display: none;
+}
