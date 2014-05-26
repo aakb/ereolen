@@ -291,14 +291,11 @@
       // List of elements classes to be kept.
       var classes = ['book-title', 'author', 'abstract'];
       var cls = '';
-      var resellers_markup = (data.status === true) ? data.markup : '';
-      var content = '';
+      var resellers_markup = (data.status === true) ? $(data.resellers_markup) : '';
+      var ting_object_markup = (data.status === true) ? $(data.ting_object_markup) : '';
 
-      // Instead of hunge/munge services, response or any requests,
-      // take the markup from the actual item page.
-      //
-      // This is template dependant.
-      $(ting_object_markup).find('.meta .inner').children().each(function() {
+      var content = $('<div id="ting-object-popup-details" />');
+      ting_object_markup.find('.meta .inner').children().each(function() {
         cls = $(this).attr('class');
 
         // -1 means the value is NOT present in the array of values.
@@ -307,7 +304,6 @@
         }
       });
 
-      content = $('<div id="ting-object-popup-details" />');
       content.append(ting_object_markup);
       content.find('#ting-object').after(resellers_markup);
       buttons[translatable.close_label] = function() {

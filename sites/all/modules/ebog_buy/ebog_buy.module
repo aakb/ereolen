@@ -64,14 +64,27 @@ function ebog_buy_theme($existing, $type, $theme, $path) {
  *   The book identifier.
  */
 function ebog_buy_get_resellers($isbn = '') {
+  module_load_include('client.inc', 'ting');
+
   $ws_link = variable_get('ebog_buy_purchase_ws', '');
   $ws_key = variable_get('ebog_buy_secret_code', '');
 
   $resellers = json_decode(ebog_buy_send_request($isbn, $ws_link, $ws_key));
+  $result = ting_do_search($isbn);
+  $object = isset($result->collections[0]->objects[0]) ? $result->collections[0]->objects[0] : NULL;
+
   if (json_last_error() === JSON_ERROR_NONE) {
     usort($resellers, '_ebog_sort_resellers');
 
-    $response['markup'] = ebog_buy_get_resellers_markup($resellers);
+    if ($object instanceof TingClientObject) {
+      $response['ting_object_markup'] = theme('ting_object', $object);
+    }
+    else {
+      $response['ting_object_markup'] = '<h3>' . t('No item found with such ISBN number.') . '</h3>';
+      watchdog('ebog_buy', t('No item found with %isbn ISBN.'), array('%isbn' => $isbn), WATCHDOG_NOTICE);
+    }
+
+    $response['resellers_markup'] = ebog_buy_get_resellers_markup($resellers);
     $response['status'] = count($response) > 0 ? TRUE : FALSE;
 
     drupal_json($response);
@@ -149,7 +162,7 @@ function _ebog_sort_resellers($a, $b) {
 function ebog_buy_get_resellers_markup($data = array()) {
   $markup = array();
 
-  if (is_array($data)) {
+  if (is_array($data) && !empty($data)) {
     foreach ($data as $reseller) {
       $markup[] = theme('ebog_buy_reseller_single', array(
         'seller' => $reseller->Seller,
@@ -157,7 +170,8 @@ function ebog_buy_get_resellers_markup($data = array()) {
         'url' => $reseller->UnitPurchaceReference,
       ));
     }
+    return theme('ebog_buy_resellers', array('resellers' => implode('', $markup)));
   }
 
-  return theme('ebog_buy_resellers', array('resellers' => implode('', $markup)));
+  return '<h3>' . t('No resellers found.') . '</h3>';
 }
