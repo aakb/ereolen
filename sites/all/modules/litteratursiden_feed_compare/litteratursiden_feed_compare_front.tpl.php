@@ -1,42 +1,43 @@
 <?php
 /**
  * @file
+ * Default template file for compare block.
  */
 ?>
 <div class="feed-and-compare-front clear-block">
-  <?php if ($items['status'] == 'empty') { ?>
+  <?php if ($items['status'] == 'empty'): ?>
     <div class="feed_and_compare_empty">
       <h1>Der var desv&aelig;rre ingen materialer som matchede anmeldelser hos Litteratursiden.</h1>
     </div>
-  <?php } ?>
+  <?php endif; ?>
 
-  <?php if ($items['status'] == 'error') { ?>
+  <?php if ($items['status'] == 'error'): ?>
     <div class="feed_and_compare_error">
       <b>Error:</b> <?php echo $items['message']; ?>
     </div>
-  <?php } ?>
+  <?php endif; ?>
 
-  <?php if (($items['status'] == 'ok') || ($items['status'] == 'notfull')) { ?>
-    <?php $i=0; ?>
-    <?php foreach ($items['data'] as $key => $item) { ?>
-      <?php if (is_numeric($key)) { ?>
+  <?php if (($items['status'] == 'ok') || ($items['status'] == 'notfull')): ?>
+    <?php $i = 0; ?>
+    <?php foreach ($items['data'] as $key => $item) : ?>
+      <?php if (is_numeric($key)): ?>
         <div class="feed_and_compare_item display-book">
           <div class="left">
             <?php
-             $alttext = t('@titel af @forfatter', array('@titel' => $item['title'], '@forfatter' => $item['author']));
-             $image = theme('image', $item['image'], $alttext, $alttext, array(), FALSE);
-	           echo l($image, $item['url'], array('html' => TRUE));
+              $alttext = t('@titel af @forfatter', array('@titel' => $item['title'], '@forfatter' => $item['author']));
+              $image = theme('image', $item['image'], $alttext, $alttext, array(), FALSE);
+              echo l($image, $item['url'], array('html' => TRUE));
             ?>
           </div>
           <div class="record right">
             <h3 class="title">
-              <?php echo l($item['title'], $item['url'], array('html' => true)); ?>
+              <?php echo l($item['title'], $item['url'], array('html' => TRUE)); ?>
             </h3>
             <div class="author">
-              <?php echo l($item['author'], 'ting/search/' . urlencode($item['author']), array('html' => true)); ?>
+              <?php echo l($item['author'], 'ting/search/"' . urlencode($item['author']) . '"', array('html' => TRUE)); ?>
             </div>
             <div class="descr">
-              <?php echo substr(strip_tags($item['abstract']),0,150) . '...'; ?>
+              <?php echo substr(strip_tags($item['abstract']), 0, 150) . '...'; ?>
             </div>
             <div class="litteratursiden">
               <img src="sites/all/themes/ebog/images/litteratursiden.png" style="border:0;margin:0;padding:0;" />
@@ -44,14 +45,14 @@
           </div>
         </div>
         <?php $i++; ?>
-      <?php } ?>
+      <?php endif; ?>
       <?php
-        if ($i == variable_get('litteratursiden_feed_compare_items_on_front', '2')) {
+        if ($i == variable_get('litteratursiden_feed_compare_items_on_front', '2')):
           break;
-        }
+        endif;
       ?>
-    <?php } ?>
-  <?php } ?>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
 </div>
 
