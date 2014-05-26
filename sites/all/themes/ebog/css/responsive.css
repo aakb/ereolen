@@ -143,7 +143,7 @@
        -moz-border-radius: 5px;
             border-radius: 5px;
     -webkit-background-clip: padding-box;
-       -moz-background-clip: padding;
+       -moz-background-clip: padding-box;
             background-clip: padding-box;
   }
 
@@ -382,6 +382,256 @@
     position: inherit;
     clear: both;
     float: left;
+    height: 32px;
+    margin: 0;
+  }
+
+  #site-menu ul.menu li a {
+    background: none;
+    color: #8C938B;
+    font: 20px/26px 'BebasNeueRegular', Helvetica, Arial, sans-serif;
+    height: 32px;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0;
+    width: 100%;
+  }
+
+  #site-menu ul.menu li:hover a,
+  #site-menu ul.menu li a:hover {
+    text-decoration: underline;
+  }
+
+  #site-menu ul.menu li a.active {
+    color: #BF2226;
+  }
+
+  ul.nice-menu-down li a,
+  ul.nice-menu-down li.menuparent a,
+  ul.nice-menu-down ul li a,
+  ul.nice-menu-down li.menuparent ul li a {
+    font-size: 85%;
+  }
+
+  .pane-recall-list-cart,
+  .pane-publizon-loans-myloans {
+    margin: 0 0 10px 0;
+    width: 100%;
+  }
+
+  ul.nice-menu-down {
+    margin-left: 0;
+    margin-right: 0;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-top: 25px;
+  }
+
+  ul.nice-menu-down ul {
+    margin-top: 10px;
+  }
+
+  .panel-separator,
+  .panel-region-separator {
+    height: auto;
+  }
+
+  .ebog-author-portrait-descr {
+    max-height: 300px;
+    overflow-y: hidden;
+  }
+
+  #page .visible_item {
+    border-bottom: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 98%;
+    display: block;
+  }
+
+  .feed_and_compare_item.visible_item {
+    display: inline-block !important;
+  }
+
+  .section-ting .pane-netsound-review-2 {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 540px) {
+  .block-nice_menus h2 {
+    font-size: 85%;
+    left: 24px;
+  }
+}
+
+/* Carousel tabs
+  ----------------------------------------------------------------------------------------------------*/
+.carousel-tabs ul {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.carousel-tabs ul li {
+  display: table-cell;
+  width: auto !important;
+}
+
+.carousel-wrapper {
+  height: 188px;
+  overflow: hidden;
+}
+
+.carousel-inner ul li {
+  min-width: 124px;
+}
+
+.ajax-loader {
+  margin-left: -110px;
+}
+
+/* Rotate blocks
+  ----------------------------------------------------------------------------------------------------*/
+.rotated_container {
+  position: relative;
+}
+
+.rotated_item {
+  min-height: 50px;
+}
+
+.rotated_container .prev_item,
+.rotated_container .next_item {
+  background-image: url(../images/cycle.png);
+  display: block;
+  height: 36px;
+  margin-top: -18px;
+  position: absolute;
+  text-indent: -9999px;
+  top: 50%;
+  width: 36px;
+}
+
+.rotated_container .prev_item {
+  left: -20px;
+}
+
+.rotated_container .next_item {
+  background-position: 108px 0;
+  right: -20px;
+}
+
+/* Mobile Menu
+  ----------------------------------------------------------------------------------------------------*/
+#page .mobile-menu {
+  margin-top: 30px;
+}
+
+#page .mobile-menu > li {
+  position: static;
+}
+
+#page .mobile-menu > li a {
+  position: relative;
+  z-index: 100;
+}
+
+#page .mobile-menu ul {
+  margin: 0;
+  width: 100%;
+  border-top: 1px solid #fff;
+  -webkit-border-radius: 0 0 5px 5px;
+     -moz-border-radius: 0 0 5px 5px;
+          border-radius: 0 0 5px 5px;
+  overflow: hidden !important;
+}
+
+#page .mobile-menu ul li a {
+  text-decoration: none;
+}
+
+/* Rating
+  ----------------------------------------------------------------------------------------------------*/
+.touch .addRatingContainer .show_rating,
+.touch .addRatingContainer .show_rating + div .rating {
+  cursor: pointer;
+  height: 16px;
+  text-indent: -9999px;
+  width: 16px;
+}
+
+.touch .addRatingContainer .show_rating,
+.touch .addRatingContainer .show_rating + div .rating.star-off,
+.touch .addRatingContainer .show_rating + div .rating {
+  background: url(../img/star-inactive.png) 0 0 no-repeat;
+}
+
+.touch .addRatingContainer .show_rating + div .rating.star-black {
+  background: url(../img/star-active.png) 0 0 no-repeat;
+}
+
+.touch .show_rating {
+  display: block;
+  float: left;
+}
+
+.touch .show_rating + div {
+  display: none;
+  padding-left: 10px;
+  overflow: hidden;
+}
+
+.touch #ting-object .ratingsContainer {
+  overflow: hidden;
+}
+
+.touch .show_rating + div.active {
+  display: block;
+  float: left;
+}
+
+.touch .show_rating + div .rating {
+  margin-right: 3px;
+}
+
+.touch .addRatingContainer {
+  float: none;
+  margin: 5px 0;
+}
+
+.touch .ratingsContainer,
+.touch .addRatingContainer {
+  overflow: hidden;
+}
+
+.voxb,
+.touch .voxb {
+  padding-bottom: 10px;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+.touch .ajax_anim,
+.touch .ajax_anim.active {
+  display: none;
+}
+
+@media screen and (max-width: 960px) {
+  #ting-object *,
+  html.js .resizable-textarea textarea,
+  #ting-object *:before,
+  html.js .resizable-textarea textarea:before,
+  #ting-object *:after,
+  html.js .resizable-textarea textarea:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  #edit-review-content-wrapper .resizable-textarea {
+    width: 100%;
   }
 
   #ting-object h1.book-title {
