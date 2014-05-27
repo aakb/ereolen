@@ -1,61 +1,62 @@
 <?php
 
 /**
- * JSON callback to Ting reference collection autocomplete
+ * JSON callback to Ting reference collection autocomplete.
  */
 function ting_reference_collection_autocomplete_js() {
-	module_load_include('client.inc', 'ting');
-	
-	$string = $_REQUEST['query'];
-	
-	$items = array();
-	if ($string && (strlen($string) > 0))
-	{
-		$searchResult = ting_do_search($string, 1, 10, array('facets' => array()));
-		if (isset($searchResult->collections) && is_array($searchResult->collections)) {
-	    foreach ($searchResult->collections as $collection) {
-	      $items[$collection->id] = t('!author: !title (!manifestations)', array(
-	        '!author' => $collection->creators_string,
-	        '!title' => $collection->title,
-	        '!manifestations' => format_plural(count($collection->objects), '1 manifestation', '@count manifestations'),
-	      ));
-	    }
-	  }
-	}
-	
-	echo ting_reference_autocomplete_format_items($items);
-	exit;
+  module_load_include('client.inc', 'ting');
+
+  $string = $_REQUEST['query'];
+
+  $items = array();
+  if ($string && (strlen($string) > 0)) {
+    $search_result = ting_do_search($string, 1, 10, array('facets' => array()));
+    if (isset($search_result->collections) && is_array($search_result->collections)) {
+      foreach ($search_result->collections as $collection) {
+        $items[$collection->id] = t('!author: !title (!manifestations)', array(
+          '!author' => $collection->creators_string,
+          '!title' => $collection->title,
+          '!manifestations' => format_plural(count($collection->objects), '1 manifestation', '@count manifestations'),
+        ));
+      }
+    }
+  }
+
+  echo ting_reference_autocomplete_format_items($items);
+  exit;
 }
 
 /**
- * JSON callback to Ting reference collection autocomplete
+ * JSON callback to Ting reference collection autocomplete.
  */
 function ting_reference_object_autocomplete_js() {
-	module_load_include('client.inc', 'ting');
+  module_load_include('client.inc', 'ting');
 
-	$string = $_REQUEST['query'];
-	
-	$items = array();
-	if ($string && (strlen($string) > 0)) {
-		$searchResult = ting_do_search($string, 1, 10, array('useCollections' => 'false', 'facets' => array()));
-		
+  $string = $_REQUEST['query'];
+
+  $items = array();
+  if ($string && (strlen($string) > 0)) {
+    $search_result = ting_do_search($string, 1, 10, array('useCollections' => 'false', 'facets' => array()));
+
     // If there is no usable result, exit immediately, providng no reply.
-    if (!$searchResult) { exit; }
+    if (!$search_result) {
+      exit;
+    }
 
-		foreach ($searchResult->collections as $collection) {
-			$object = array_shift($collection->objects);
-      $items[$object->id] = t('!author: !title (!type, !year, !id)',  array(
+    foreach ($search_result->collections as $collection) {
+      $object = array_shift($collection->objects);
+      $items[$object->id] = t('!author: !title (!type, !year, !id)', array(
         '!author' => $object->creators[0],
         '!title' => $object->title,
         '!type' => $object->type,
         '!year' => $object->record['dc:date'][''][0],
         '!id' => $object->localId,
       ));
-		}
-	}
+    }
+  }
 
-	echo ting_reference_autocomplete_format_items($items);
-	exit;
+  echo ting_reference_autocomplete_format_items($items);
+  exit;
 }
 
 function ting_reference_autocomplete_format_items($items) {
