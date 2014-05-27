@@ -19,7 +19,7 @@
   </div>
   <div class="meta unit grid-8 omega">
     <div class="inner">
-      <h1 class="book-title"><?php print check_plain($object->record['dc:title'][''][0]); ?></h1>
+      <h1 class="book-title"><?php print l(check_plain($object->record['dc:title'][''][0]), $object->url); ?></h1>
       <div class="author"><?php echo t('By !author', array('!author' => $author)); ?></div>
 
       <?php if (!empty($description)): ?>

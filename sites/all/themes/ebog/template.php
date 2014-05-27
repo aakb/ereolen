@@ -61,9 +61,6 @@ function ebog_preprocess_ting_object(&$vars) {
 function ebog_preprocess_ting_reference_object(&$vars) {
   $isbn = $vars['object']->record['dc:identifier']['oss:PROVIDER-ID'][0];
 
-  // Override ting object page title.
-  drupal_set_title(check_plain($vars['object']->title . ' ' . t('af') . ' ' . $vars['object']->creators_string));
-
   // Create the author field.
   $vars['author'] = publizon_get_authors($vars['object']);
 

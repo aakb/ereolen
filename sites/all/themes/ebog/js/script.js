@@ -9,6 +9,14 @@ jQuery(function($){
       userCollapseText: Drupal.t('Less')
     });
 
+    // Make publisher description folderable.
+    $('.ting-references-object .abstract').expander({
+      slicePoint: 350,
+      expandPrefix: ' ',
+      expandText: Drupal.t('More'),
+      userCollapseText: Drupal.t('Less')
+    });
+
     // Make the help block clickable.
     $('#block-block-12').click(function() {
       document.location.href = "/help";
