@@ -1246,17 +1246,17 @@ ul.nice-menu-down li.over a {
     color: #8c938b;
 }
 
-.ting-references-object .abstract,
-.ting-references-object .abstract .details {
+.ting-references-object .publisherDescription,
+.ting-references-object .publisherDescription .details {
     color: #000;
     margin-bottom: 25px;
 }
 
-.ting-references-object .abstract .read-more {
+.ting-references-object .publisherDescription .read-more {
     display: block !important;
 }
 
-.ting-references-object .abstract .read-more:before {
+.ting-references-object .publisherDescription .read-more:before {
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 6px solid #BE1F24;
@@ -1268,7 +1268,7 @@ ul.nice-menu-down li.over a {
     width: 0;
 }
 
-.ting-references-object .abstract .read-less:before {
+.ting-references-object .publisherDescription .read-less:before {
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-bottom: 6px solid #BE1F24;
@@ -1280,18 +1280,10 @@ ul.nice-menu-down li.over a {
     width: 0;
 }
 
-.ting-references-object .abstract p {
+.ting-references-object .publisherDescription p {
     margin-bottom: 1em;
 }
 
-.ting-references-object .abstract .section {
+.ting-references-object .publisherDescription .section {
     font-weight: bold;
-}
-
-#reference .reference {
-    float: right;
-}
-
-#reference .reference h3 {
-    border-bottom: 2px solid #DBDDDA;
 }
