@@ -179,8 +179,13 @@ function ebog_stream_try_loan($book_id) {
       $response = array(
         'status' => 'loan_exceeded',
         'title' => t('Max loans exceeded'),
-        'message' => $e->getMessage(),
+        'code' => $e->getCode(),
+        'buy_enabled' => FALSE,
+        'message' => t('@message', array('@message' => $e->getMessage())) . '<p>' . t('But you can buy it.') . '</p>',
       );
+    }
+    if (module_exists('ebog_buy')) {
+      $response['buy_enabled'] = TRUE;
     }
   }
 

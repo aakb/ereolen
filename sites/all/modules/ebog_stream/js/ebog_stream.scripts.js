@@ -7,6 +7,8 @@
   var ok_button = Drupal.t('Ok');
   var login_button = Drupal.t('Login');
   var cancel_button = Drupal.t('Cancel');
+  var bookmark_label = Drupal.t('Remember');
+  var prices_label = Drupal.t('Prices');
 
   var showThrobber = function(ele, dialog) {
     if (dialog) {
@@ -57,11 +59,41 @@
         hideThrobber(button, true);
         closePopup();
 
+        if (response.status !== 'loaned') {
+          var loan_disabled = (response.code === 120 || response.code === 125 || response.code === 126);
+          // In case the buy functionality is enabled.
+          if (response.buy_enabled === true && loan_disabled === true) {
+            buttons[bookmark_label] = function() {
+              window.location = $('.recall-list-add').attr('href');
+              button = $('#ting-download-popup-info').parents('.ui-dialog:first').find('button');
+              button.css('visibility', 'hidden');
+              button.parent().append('<div class="ajax-loader"></div>');
+            };
+
+            buttons[prices_label] = function() {
+              button = $('#ting-download-popup-info').parents('.ui-dialog:first').find('button');
+              button.css('visibility', 'hidden');
+              button.parent().append('<div class="ajax-loader"></div>');
+
+              lookup_retailers(itemId, function(response) {
+                button.css('visibility', 'visible');
+                button.parent().find('.ajax-loader').remove();
+                $('#ting-download-popup').dialog('close');
+                $('#ting-download-popup-info').remove();
+
+                show_retailers(response);
+              });
+            };
+
+            showPopup(response.title, response.message, buttons);
+          }
+          else if (response.status === 'loan_exceeded') {
+            showPopup(response.title, response.message, {'Ok': function() {$(popupSelector).dialog('close').remove();}});
+          }
+        }
+
         if (response.status === 'loaned') {
           displayReader(response);
-        }
-        else if (response.status === 'loan_exceeded') {
-          showPopup(response.title, response.message, {'Ok': function() {$(popupSelector).dialog('close').remove();}});
         }
       });
     }
@@ -206,7 +238,60 @@
       });
     }
     showPopup(Drupal.t('Read'), content, []);
-  }
+  };
+
+  // Retrieve the markup for resellers.
+  var lookup_retailers = function(itemId, callback) {
+    $.ajax({
+      type : 'post',
+      url : '/publizon/' + itemId + '/buy',
+      dataType : 'json',
+      success: function(response) {
+        if ($.isFunction(callback)) {
+          callback(response);
+        }
+      }
+    });
+  };
+
+  // Populate the popup with reseller and item information.
+  var show_retailers = function(data) {
+    var buttons = {};
+
+    // List of elements classes to be kept.
+    var classes = ['book-title', 'author', 'abstract'];
+    var cls = '';
+    var resellers_markup = (data.status === true) ? $(data.resellers_markup) : '';
+    var ting_object_markup = (data.status === true) ? $(data.ting_object_markup) : '';
+
+    var content = $('<div id="ting-object-popup-details" />');
+    ting_object_markup.find('.meta .inner').children().each(function() {
+      cls = $(this).attr('class');
+
+      // -1 means the value is NOT present in the array of values.
+      if ($.inArray(cls, classes) === -1) {
+        ting_object_markup.find('.' + cls).remove();
+      }
+    });
+
+    content.append(ting_object_markup);
+    content.find('#ting-object').after(resellers_markup);
+    buttons[ok_button] = function() {
+      $('#ting-download-popup-resellers').dialog('close');
+    };
+
+    var popup = $('<div id="ting-download-popup-resellers" title="' + Drupal.t('Prices') + '">' + content.html() + '</div>');
+    popup.dialog({
+      modal: true,
+      width: 'auto',
+      height: 'auto',
+      buttons: buttons
+    });
+  };
+
+  $('.item-reseller .buy button').live('click', function() {
+    $('#ting-download-popup-resellers').dialog('close');
+  });
 
   $(document).ready(function() {
     $('a[action="stream"]').live("click", function(e) {

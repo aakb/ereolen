@@ -26,7 +26,7 @@ function ebog_buy_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $menu['publizon/%/download/buy'] = array(
+  $menu['publizon/%/buy'] = array(
     'page callback' => 'ebog_buy_get_resellers',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
