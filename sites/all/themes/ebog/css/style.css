@@ -1287,3 +1287,11 @@ ul.nice-menu-down li.over a {
 .ting-references-object .abstract .section {
     font-weight: bold;
 }
+
+#reference .reference {
+    float: right;
+}
+
+#reference .reference h3 {
+    border-bottom: 2px solid #DBDDDA;
+}
