@@ -7,18 +7,18 @@
     <meta content="no-cache, no-store" http-equiv="cache-control" />
     <meta content="no-cache" http-equiv="pragma" />
     <meta content="-1" http-equiv="expires" />
-    <link rel="stylesheet" type="text/css" href="https://reader.pubhub.dk/scripts/reader-1.3.4/css">
-    <script type="text/javascript" src="https://reader.pubhub.dk/scripts/reader-1.3.4/js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://reader.pubhub.dk/scripts/reader-1.4.0/css">
+    <script type="text/javascript" src="https://reader.pubhub.dk/scripts/reader-1.4.0/js"></script>
+
     <script type="text/javascript">
-      var reader;
-        function InitReader() {
-          reader = new Reader ({
-            elementId: 'reader-container',
-            orderId: '<?php print $vars['order_number']; ?>',
-            sessionKeyUrl: window.location.protocol + '//' + window.location.host + '/<?php print $vars['session_url']; ?>',
-            notesEnabled: false
-          });
-          reader.Display();
+      function InitReader() {
+        Reader.init({
+          elementId: 'reader-container',
+          orderId: '<?php print $vars['order_number']; ?>',
+          sessionKeyUrl: window.location.protocol + '//' + window.location.host + '/<?php print $vars['session_url']; ?>',
+          notesEnabled: false
+        });
       }
     </script>
     <title>eReolen Stream - <?php print $vars['title'] ?></title>
