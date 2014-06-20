@@ -1190,4 +1190,111 @@ ul.nice-menu-down li.over a {
 
 #read-offline {
   margin-right: 4px;
+<<<<<<< HEAD
+}
+=======
+}
+
+#ting-object {
+  overflow: hidden;
+  width: 100%;
+}
+
+.collapsible-title {
+  cursor: pointer;
+  background: url(../img/expanded.png) 100% 50% no-repeat;
+}
+
+.collapsible-title.expanded {
+  background: url(../img/collapsed.png) 100% 50% no-repeat;
+}
+
+#page .container-16 .collapsible-title {
+  margin: 5px 0;
+}
+
+
+.field-type-ting-reference {
+    margin-top: 1.5em;
+}
+
+.ting-references-object {
+    clear:both;
+}
+
+.ting-references-object .picture img {
+    width: 100px;
+}
+
+.ting-references-object .panel-1col .panel-pane {
+    float: right;
+}
+.ting-references-object .inner {
+    margin-bottom: 1em;
+}
+
+.ting-references-object .author,
+.ting-references-object .abstract,
+.ting-references-object .description  {
+    clear:both;
+    list-style-type: none;
+}
+
+.ting-references-object .details .item-list h3 {
+    float: left;
+    font-weight: normal;
+}
+
+.ting-references-object .details {
+    color: #8c938b;
+}
+
+.ting-references-object .abstract,
+.ting-references-object .abstract .details {
+    color: #000;
+    margin-bottom: 25px;
+}
+
+.ting-references-object .abstract .read-more {
+    display: block !important;
+}
+
+.ting-references-object .abstract .read-more:before {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #BE1F24;
+    content: "";
+    height: 0;
+    margin-right: 8px;
+    position: relative;
+    top: 12px;
+    width: 0;
+}
+
+.ting-references-object .abstract .read-less:before {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #BE1F24;
+    content: "";
+    height: 0;
+    margin-right: 8px;
+    position: relative;
+    top: -10px;
+    width: 0;
+}
+
+.ting-references-object .abstract p {
+    margin-bottom: 1em;
+}
+
+.ting-references-object .abstract .section {
+    font-weight: bold;
+}
+
+#reference .reference {
+    float: right;
+}
+
+#reference .reference h3 {
+    border-bottom: 2px solid #DBDDDA;
 }
