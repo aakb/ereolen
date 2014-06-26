@@ -17,7 +17,8 @@
           elementId: 'reader-container',
           orderId: '<?php print $vars['order_number']; ?>',
           sessionKeyUrl: window.location.protocol + '//' + window.location.host + '/<?php print $vars['session_url']; ?>',
-          notesEnabled: false
+          notesEnabled: false,
+          imageBasePath: 'https://reader.pubhub.dk/images/1.4.0/'
         });
       }
     </script>
