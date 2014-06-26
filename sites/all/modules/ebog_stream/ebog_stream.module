@@ -4,8 +4,6 @@
  * Streaming reader backend and loaning logic here.
  */
 
-define('EBOG_STREAM_EREOLEN_KEY', '48BD7B7E-BF4A-47A7-A369-59A6375D8B58');
-
 /**
  * Implements hook_menu().
  */
@@ -52,6 +50,15 @@ function ebog_stream_menu() {
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/settings/ebog_stream'] = array(
+    'title' => 'Ebog stream settings',
+    'description' => 'API key settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ebog_stream_admin_settings_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'ebog_stream.admin.inc',
   );
 
   return $items;
@@ -296,7 +303,9 @@ function ebog_stream_check_auth($order_number) {
   $library = publizon_get_library($retailer_id);
   $library_key = md5($library['retailer_key_code']);
 
-  $response = file_get_contents('http://streaming.bogskyen.dk/publicstreaming/v1/' . $order_number . '/session/' . EBOG_STREAM_EREOLEN_KEY . '/' . $retailer_id . '/' . $library_key);
+  $ebog_stream_api_key = variable_get('ebog_stream_api_key');
+
+  $response = file_get_contents('http://streaming.bogskyen.dk/publicstreaming/v1/' . $order_number . '/session/' . $ebog_stream_api_key . '/' . $retailer_id . '/' . $library_key);
 
   echo $response;
 }
