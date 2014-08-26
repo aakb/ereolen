@@ -184,7 +184,8 @@ function _app_api_modify_list($user, $op) {
   // Test if product exists.
   try {
     $product = new PublizonProduct($isbn);
-  } catch(Exception $e) {
+  }
+  catch(Exception $e) {
     drupal_json(array(
       'status' => FALSE,
       'errorcode' => 5,
@@ -226,7 +227,7 @@ function _app_api_modify_list($user, $op) {
  * @param string $password
  *   The users pin code.
  * @param int $retailer_id
- *  The library that the user belongs to ID.
+ *   The library that the user belongs to ID.
  *
  * @return array
  *   Array with either error array ready to json_encode or the user object in
@@ -246,7 +247,7 @@ function _app_api_login($username, $password, $retailer_id) {
         'status' => TRUE,
         'data' => array(
           'account' => $account,
-        )
+        ),
       );
     }
     else {
@@ -284,7 +285,7 @@ function _app_api_check_access($api_key) {
 
   $key = variable_get('app_api_key', FALSE);
   if ($key && $key == $api_key) {
-     $allowed = TRUE;
+    $allowed = TRUE;
   }
 
   return $allowed;
