@@ -83,10 +83,11 @@ function webtrends_footer() {
     $script .= '</div>'."\n";
     $script .= '</noscript>'."\n";
 
-    $scriptpath = drupal_get_path('module', 'webtrends') . '/js';
+    $script_path = '/' . drupal_get_path('module', 'webtrends') . '/js/webtrends.min.js';
 
     $script .= <<<EOT
-<script>
+<script type="text/javascript">
+//<![CDATA[
     window.webtrendsAsyncInit=function(){
       var dcs=new Webtrends.dcs().init({
         dcsid:"dcs222f87c4vri8sluk202qg0_9z8u",
@@ -109,9 +110,10 @@ function webtrends_footer() {
         dcs.track();
 };
 (function(){
-  var s=document.createElement("script"); s.async=true; s.src="$scriptpath/webtrends.min.js";
+  var s=document.createElement("script"); s.async=true; s.src="$script_path";
   var s2=document.getElementsByTagName("script")[0]; s2.parentNode.insertBefore(s,s2);
 }());
+//]]>
 </script>
 <noscript><img alt="dcsimg" id="dcsimg" width="1" height="1" src="//statse.webtrendslive.com/dcs222f87c4vri8sluk202qg0_9z8u/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=10.4.1&amp;dcssip=www.ereolen.dk"/></noscript>
 EOT;
