@@ -53,15 +53,6 @@ function webtrends_init() {
  */
 function webtrends_footer() {
   $script = '';
-  $webtrends_values = array();
-  
-  foreach (module_list() as $module) {
-    $function = $module .'_wt_values';
-    if (function_exists($function)) {
-      $webtrends_values = $function();
-    }
-  }
-
   global $webtrends_init;
 
   if ($webtrends_init) {
