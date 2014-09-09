@@ -25,41 +25,15 @@ function webtrends_menu() {
 }
 
 /**
- * Implementation of hook_init() to check roles and add the Webtrends javascript file
- *
- * @return null
- */
-function webtrends_init() {
-  global $user;
-  global $webtrends_init;
-  $webtrends_init = false;
-
-  $webtrends_enabled_roles = explode('_', variable_get('webtrends_enabled_roles', ''));
-
-  if (is_array($webtrends_enabled_roles) && count($webtrends_enabled_roles)) {
-
-    $show_for_role = (bool) array_uintersect($webtrends_enabled_roles, array_keys($user->roles), "strcasecmp");
-
-    if ($show_for_role) {
-      $webtrends_init = true;
-    }
-  }
-}
-
-/**
  * Implementation of hook_footer() to insert Webtrends initialization script at the end of the page
  *
  * @return string $script
  */
 function webtrends_footer() {
-  $script = '';
-  global $webtrends_init;
 
-  if ($webtrends_init) {
+  $script_path = '/' . drupal_get_path('module', 'webtrends') . '/js/webtrends.min.js';
 
-    $script_path = '/' . drupal_get_path('module', 'webtrends') . '/js/webtrends.min.js';
-
-    $script = <<<EOT
+  $script = <<<EOT
 <script type="text/javascript">
 //<![CDATA[
     window.webtrendsAsyncInit=function(){
@@ -92,7 +66,5 @@ function webtrends_footer() {
 <noscript><img alt="dcsimg" id="dcsimg" width="1" height="1" src="//statse.webtrendslive.com/dcs222f87c4vri8sluk202qg0_9z8u/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=10.4.1&amp;dcssip=www.ereolen.dk"/></noscript>
 EOT;
 
-  }
-  
   return $script;
 }
