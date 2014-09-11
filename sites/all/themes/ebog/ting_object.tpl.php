@@ -9,17 +9,17 @@
  */
 
 if (module_exists('ding_voxb')) {
-  drupal_add_css(VOXB_PATH . '/css/voxb-pager.css');
-  drupal_add_css(VOXB_PATH . '/css/voxb.css');
-  drupal_add_css(VOXB_PATH . '/css/jqModal.css');
-  drupal_add_js(VOXB_PATH . '/js/jqModal.js');
-  drupal_add_js(VOXB_PATH . '/js/livequery.js');
-  drupal_add_js(VOXB_PATH . '/js/cyclic.fade.js');
-  drupal_add_js(VOXB_PATH . '/js/voxb.item.js');
+  drupal_add_css(DING_VOXB_PATH . '/css/voxb-pager.css');
+  drupal_add_css(DING_VOXB_PATH . '/css/voxb.css');
+  drupal_add_css(DING_VOXB_PATH . '/css/jqModal.css');
+  drupal_add_js(DING_VOXB_PATH . '/js/jqModal.js');
+  drupal_add_js(DING_VOXB_PATH . '/js/livequery.js');
+  drupal_add_js(DING_VOXB_PATH . '/js/cyclic.fade.js');
+  drupal_add_js(DING_VOXB_PATH . '/js/voxb.item.js');
 
-  require_once(VOXB_PATH . '/lib/VoxbItem.class.php');
-  require_once(VOXB_PATH . '/lib/VoxbProfile.class.php');
-  require_once(VOXB_PATH . '/lib/VoxbReviews.class.php');
+  require_once(DING_VOXB_PATH . '/lib/VoxbItem.class.php');
+  require_once(DING_VOXB_PATH . '/lib/VoxbProfile.class.php');
+  require_once(DING_VOXB_PATH . '/lib/VoxbReviews.class.php');
 
   $faust_number = $object->localId;
   $voxb_item = new VoxbItem();
@@ -212,5 +212,5 @@ if (module_exists('ding_voxb')) {
     <hr>
     <p class="ajax_message">Service unavailable.</p>
   </div>
-  <span class="ajaxLoaderTpl"><img src="/<?php echo VOXB_PATH . '/img/ajax-loader.gif'; ?>" alt="in progress.." class="ajax_anim" /></span>
+  <span class="ajaxLoaderTpl"><img src="/<?php echo DING_VOXB_PATH . '/img/ajax-loader.gif'; ?>" alt="in progress.." class="ajax_anim" /></span>
 <?php } ?>

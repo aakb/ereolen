@@ -1,7 +1,7 @@
 <?php
 
-require_once(VOXB_PATH . '/lib/VoxbBase.class.php');
-require_once(VOXB_PATH . '/lib/VoxbReviewRecord.class.php');
+require_once DING_VOXB_PATH . '/lib/VoxbBase.class.php';
+require_once DING_VOXB_PATH . '/lib/VoxbReviewRecord.class.php';
 
 /**
  * @file

@@ -1,11 +1,8 @@
 <?php
 /**
  * @file
- *
  * Template for rating form.
- *
  */
-
 ?>
 <div class="voxb">
   <div class="ratingsContainer">
@@ -21,6 +18,6 @@
         echo '<span class="ratingCountSpan">(<span class="ratingVotesNumber">' . $data['rating_count'] . '</span> ' . t('Rates') . ')</span>';
       }
       ?>
-      <img src="/<?php echo VOXB_PATH . '/img/ajax-loader.gif'; ?>" alt="" class="ajax_anim" />
+      <img src="/<?php echo DING_VOXB_PATH . '/img/ajax-loader.gif'; ?>" alt="" class="ajax_anim" />
   </div>
 </div>

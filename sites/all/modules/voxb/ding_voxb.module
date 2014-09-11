@@ -1,17 +1,15 @@
 <?php
-
-// Define reviews per page
-define('VOXB_REVIEWS_PER_PAGE', 3);
-// Define path to VoxB module
-define('VOXB_PATH', drupal_get_path('module', 'ding_voxb'));
-
 /**
  * @file
- *
  * This module provides interaction with VoxB web-service.
  * VoxB service stores user ratings, reviews and tags for ting item.
- *
  */
+
+// Define reviews per page.
+define('DING_VOXB_REVIEWS_PER_PAGE', 3);
+
+// Define path to VoxB module.
+define('DING_VOXB_PATH', drupal_get_path('module', 'ding_voxb'));
 
 /**
  * Implements hook_init().
@@ -19,13 +17,13 @@ define('VOXB_PATH', drupal_get_path('module', 'ding_voxb'));
  * Adding JS code to the page for ajax login form.
  */
 function ding_voxb_init() {
-  drupal_add_css(VOXB_PATH . '/css/voxb-pager.css');
-  drupal_add_css(VOXB_PATH . '/css/voxb.css');
-  drupal_add_css(VOXB_PATH . '/css/jqModal.css');
-  drupal_add_js(VOXB_PATH . '/js/jqModal.js');
-  drupal_add_js(VOXB_PATH . '/js/livequery.js');
-  drupal_add_js(VOXB_PATH . '/js/cyclic.fade.js');
-  drupal_add_js(VOXB_PATH . '/js/voxb.item.js');
+  drupal_add_css(DING_VOXB_PATH . '/css/voxb-pager.css');
+  drupal_add_css(DING_VOXB_PATH . '/css/voxb.css');
+  drupal_add_css(DING_VOXB_PATH . '/css/jqModal.css');
+  drupal_add_js(DING_VOXB_PATH . '/js/jqModal.js');
+  drupal_add_js(DING_VOXB_PATH . '/js/livequery.js');
+  drupal_add_js(DING_VOXB_PATH . '/js/cyclic.fade.js');
+  drupal_add_js(DING_VOXB_PATH . '/js/voxb.item.js');
 }
 
 /**
@@ -135,7 +133,7 @@ function ding_voxb_menu() {
  *   Logged in user.
  */
 function ding_voxb_user_login() {
-  require_once VOXB_PATH . '/lib/VoxbLogin.class.php';
+  require_once DING_VOXB_PATH . '/lib/VoxbLogin.class.php';
   global $user;
   $response = array();
 
@@ -165,11 +163,11 @@ function ding_voxb_user_create() {
   $alias_name = isset($_POST['alias_name']) ? check_plain($_POST['alias_name']) : '';
 
   if (!empty($alias_name)) {
-    require_once VOXB_PATH . '/lib/VoxbLogin.class.php';
+    require_once DING_VOXB_PATH . '/lib/VoxbLogin.class.php';
     global $user;
     $user->voxb['alias_name'] = $alias_name;
 
-    // Try create
+    // Try create.
     $obj = new VoxbLogin();
     $create = $obj->create($user);
 
@@ -193,15 +191,15 @@ function ding_voxb_user_create() {
  */
 function ding_voxb_paginator($faust_number = '', $page = 1) {
   if ($faust_number != '') {
-    require_once(VOXB_PATH . '/lib/VoxbItem.class.php');
-    require_once(VOXB_PATH . '/lib/VoxbReviews.class.php');
+    require_once DING_VOXB_PATH . '/lib/VoxbItem.class.php';
+    require_once DING_VOXB_PATH . '/lib/VoxbReviews.class.php';
 
     $item = new VoxbItem();
     $item->addReviewHandler('review', new VoxbReviews());
     $item->fetchByFaust($faust_number);
     $reviews = $item->getReviews('review');
 
-    $pages = (int)ceil($reviews->getCount() / variable_get('voxb_reviews_per_page', VOXB_REVIEWS_PER_PAGE));
+    $pages = (int)ceil($reviews->getCount() / variable_get('voxb_reviews_per_page', DING_VOXB_REVIEWS_PER_PAGE));
     echo ding_voxb_reviews_pager($pages, $page, $faust_number);
     exit(1);
   }
@@ -217,12 +215,12 @@ function ding_voxb_paginator($faust_number = '', $page = 1) {
  */
 function ding_voxb_paging_reviews($faust_number = '', $page = 1) {
   // Calculate the reviews array fetch limits
-  $per_page = variable_get('voxb_reviews_per_page', VOXB_REVIEWS_PER_PAGE);
+  $per_page = variable_get('voxb_reviews_per_page', DING_VOXB_REVIEWS_PER_PAGE);
   $start = ($page - 1) * $per_page;
   $end = $start + $per_page;
 
-  require_once VOXB_PATH . '/lib/VoxbItem.class.php';
-  require_once VOXB_PATH . '/lib/VoxbReviews.class.php';
+  require_once DING_VOXB_PATH . '/lib/VoxbItem.class.php';
+  require_once DING_VOXB_PATH . '/lib/VoxbReviews.class.php';
 
   // Get the reviews
   $item = new VoxbItem();
@@ -335,7 +333,7 @@ function ding_voxb_review_form(&$form_state, $params) {
  *   The review text.
  */
 function ding_voxb_review($faust_number = FALSE, $new_review = FALSE) {
-  // Check if we have review message and faustNumber
+  // Check if we have review message and faustNumber.
   if (!$new_review) {
     echo json_encode(array('status' => FALSE, 'message' => t('Empty review!')));
   }
@@ -343,37 +341,36 @@ function ding_voxb_review($faust_number = FALSE, $new_review = FALSE) {
     echo json_encode(array('status' => FALSE, 'message' => t('Empty faust number!')));
   }
   else {
-    require_once VOXB_PATH . '/lib/VoxbBase.class.php';
-    require_once VOXB_PATH . '/lib/VoxbReviewRecord.class.php';
+    require_once DING_VOXB_PATH . '/lib/VoxbBase.class.php';
+    require_once DING_VOXB_PATH . '/lib/VoxbReviewRecord.class.php';
 
-    // add review to to voxb
+    // Add review to to voxb.
     $review = new VoxbReviewRecord();
 
-    require_once(VOXB_PATH . '/lib/VoxbProfile.class.php');
+    require_once DING_VOXB_PATH . '/lib/VoxbProfile.class.php';
     $profile = unserialize($_SESSION['voxb']['profile']);
 
     if (!$review->create($faust_number, $new_review, $profile)) {
       echo json_encode(array('status' => FALSE, 'message' => t('Service unavailable.')));
     }
     else {
-      // update profile object in session
+      // Update profile object in session.
       $profile->updateActedItems();
       $_SESSION['voxb']['profile'] = serialize($profile);
 
-      // Get reviews updated list
-      require_once VOXB_PATH . '/lib/VoxbItem.class.php';
-      require_once VOXB_PATH . '/lib/VoxbReviews.class.php';
+      // Get reviews updated list.
+      require_once DING_VOXB_PATH . '/lib/VoxbItem.class.php';
+      require_once DING_VOXB_PATH . '/lib/VoxbReviews.class.php';
 
       $item = new VoxbItem();
       $item->addReviewHandler('review', new VoxbReviews());
       $item->fetchByFaust($faust_number);
       $reviews = $item->getReviews('review');
-      $reviews_count = $reviews->getCount();
 
-      // Limit the count of displayed text reviews
-      $limit = variable_get('voxb_reviews_per_page', VOXB_REVIEWS_PER_PAGE);
+      // Limit the count of displayed text reviews.
+      $limit = variable_get('voxb_reviews_per_page', DING_VOXB_REVIEWS_PER_PAGE);
 
-      // Loop through reviews and display them
+      // Loop through reviews and display them.
       $html = '';
       foreach ($reviews as $k => $review) {
         if ($k >= $limit) {
@@ -441,8 +438,8 @@ function ding_voxb_tag($faust_number = FALSE, $tag = FALSE) {
     echo json_encode(array('status' => FALSE, 'message' => t('Empty faust number!')));
   }
   else {
-    require_once VOXB_PATH . '/lib/VoxbItem.class.php';
-    require_once VOXB_PATH . '/lib/VoxbProfile.class.php';
+    require_once DING_VOXB_PATH . '/lib/VoxbItem.class.php';
+    require_once DING_VOXB_PATH . '/lib/VoxbProfile.class.php';
     $new_tag = new VoxbTagRecord();
     $profile = unserialize($_SESSION['voxb']['profile']);
 
@@ -450,7 +447,7 @@ function ding_voxb_tag($faust_number = FALSE, $tag = FALSE) {
       echo json_encode(array('status' => FALSE, 'message' => t('Service unavailable.')));
     }
     else {
-      // update profile object in session
+      // Update profile object in session.
       $profile->updateActedItems();
       $_SESSION['voxb']['profile'] = serialize($profile);
 
@@ -477,8 +474,8 @@ function ding_voxb_rating($faust_number = FALSE, $rating = 0) {
     echo json_encode(array('status' => FALSE, 'message' => t('Empty faust number!')));
   }
   else {
-    require_once VOXB_PATH . '/lib/VoxbItem.class.php';
-    require_once VOXB_PATH . '/lib/VoxbProfile.class.php';
+    require_once DING_VOXB_PATH . '/lib/VoxbItem.class.php';
+    require_once DING_VOXB_PATH . '/lib/VoxbProfile.class.php';
 
     $item = new VoxbItem();
 
@@ -527,9 +524,9 @@ function ding_voxb_preprocess_ting_object(&$variables) {
 
   $faust_number = $variables['object']->localId;
 
-  require_once(VOXB_PATH . '/lib/VoxbItem.class.php');
-  require_once(VOXB_PATH . '/lib/VoxbProfile.class.php');
-  require_once(VOXB_PATH . '/lib/VoxbReviews.class.php');
+  require_once(DING_VOXB_PATH . '/lib/VoxbItem.class.php');
+  require_once(DING_VOXB_PATH . '/lib/VoxbProfile.class.php');
+  require_once(DING_VOXB_PATH . '/lib/VoxbReviews.class.php');
 
   $voxb_item = new VoxbItem();
   $voxb_item->addReviewHandler('review', new VoxbReviews());
@@ -564,7 +561,7 @@ function ding_voxb_preprocess_ting_object(&$variables) {
   $is_able_to_review = ($user->uid) ? TRUE : FALSE;
   $user_data = ($profile && is_object($profile)) ? $profile->getVoxbUserData($faust_number) : array();
 
-  $limit = variable_get('voxb_reviews_per_page', VOXB_REVIEWS_PER_PAGE);
+  $limit = variable_get('voxb_reviews_per_page', DING_VOXB_REVIEWS_PER_PAGE);
   $reviews = '';
 
   // Prepare the needed number of existing reviews.
@@ -603,7 +600,7 @@ function ding_voxb_preprocess_ting_object(&$variables) {
   }
 
   // Reviews pager
-  $pages = (int)ceil($voxb_item->getReviews('review')->getCount() / variable_get('voxb_reviews_per_page', VOXB_REVIEWS_PER_PAGE));
+  $pages = (int)ceil($voxb_item->getReviews('review')->getCount() / variable_get('voxb_reviews_per_page', DING_VOXB_REVIEWS_PER_PAGE));
   $voxb_pager = ding_voxb_reviews_pager($pages, 1, $faust_number);
 
   $voxb_reviews = theme(
