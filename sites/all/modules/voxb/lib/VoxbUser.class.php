@@ -19,19 +19,19 @@ class VoxbUser extends VoxbBase {
    * Fetch user by his SSN(CPR) number
    *
    * @param string $cpr
-   * @param string $identityProvider
-   * @param string $institutionName
+   * @param string $identity_provider
+   * @param string $institution_name
    *
    * @return boolean
    */
-  public function getUserBySSN($cpr, $identityProvider, $institutionName) {
+  public function getUserBySSN($cpr, $identity_provider, $institution_name) {
     $response = $this->call('fetchUser', array(
         'authenticationFingerprint' => array(
           'userIdentifierValue' => $cpr,
           'userIdentifierType' => 'CPR',
-          'identityProvider' => $identityProvider,
-          'institutionName' => $institutionName
-        )
+          'identityProvider' => $identity_provider,
+          'institutionName' => $institution_name,
+        ),
       )
     );
     if (!$response || isset($response->error)) {

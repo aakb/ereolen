@@ -93,21 +93,21 @@ class VoxbProfile extends VoxbBase {
    * already exist in VoxB database only a new profile will be added to his account.
    * This business logic is on the VoxB server side.
    *
-   * @param string $identityProvider
-   * @param string $institutionName
+   * @param string $identity_provider
+   * @param string $institution_name
    */
-  public function createUser($identityProvider, $institutionName) {
+  public function createUser($identity_provider, $institution_name) {
     $response = $this->call('createUser', array(
       'userAlias' => array(
         'aliasName' => $this->aliasName,
-        'profileLink' => $this->profileLink
+        'profileLink' => $this->profileLink,
       ),
       'authenticationFingerprint' => array(
         'userIdentifierValue' => $this->cpr,
         'userIdentifierType' => 'CPR',
-        'identityProvider' => $identityProvider,
-        'institutionName' => $institutionName
-      )
+        'identityProvider' => $identity_provider,
+        'institutionName' => $institution_name,
+      ),
     ));
 
     if (isset($response->userId)) {

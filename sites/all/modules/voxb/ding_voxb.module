@@ -137,7 +137,7 @@ function ding_voxb_user_login() {
   global $user;
   $response = array();
 
-  //Try login
+  // Try login.
   $obj = new VoxbLogin();
   $login = $obj->login($user);
 
@@ -159,7 +159,6 @@ function ding_voxb_user_login() {
  *   Logged in user.
  */
 function ding_voxb_user_create() {
-  $response = array();
   $alias_name = isset($_POST['alias_name']) ? check_plain($_POST['alias_name']) : '';
 
   if (!empty($alias_name)) {
@@ -184,9 +183,9 @@ function ding_voxb_user_create() {
 /**
  * Creates and outputs the pagination.
  *
- * @param $faust_number
+ * @param string $faust_number
  *   Item's faust number.
- * @param $page
+ * @param int $page
  *   Current displayed page.
  */
 function ding_voxb_paginator($faust_number = '', $page = 1) {
@@ -199,7 +198,7 @@ function ding_voxb_paginator($faust_number = '', $page = 1) {
     $item->fetchByFaust($faust_number);
     $reviews = $item->getReviews('review');
 
-    $pages = (int)ceil($reviews->getCount() / variable_get('voxb_reviews_per_page', DING_VOXB_REVIEWS_PER_PAGE));
+    $pages = (int) ceil($reviews->getCount() / variable_get('voxb_reviews_per_page', DING_VOXB_REVIEWS_PER_PAGE));
     echo ding_voxb_reviews_pager($pages, $page, $faust_number);
     exit(1);
   }
@@ -208,27 +207,27 @@ function ding_voxb_paginator($faust_number = '', $page = 1) {
 /**
  * Display the reviews at the specific page.
  *
- * @param $faust_number
+ * @param string $faust_number
  *   Item's faust_number
- * @param $page
+ * @param int $page
  *   The page number, which comments are to be displayed
  */
 function ding_voxb_paging_reviews($faust_number = '', $page = 1) {
-  // Calculate the reviews array fetch limits
+  // Calculate the reviews array fetch limits.
   $per_page = variable_get('voxb_reviews_per_page', DING_VOXB_REVIEWS_PER_PAGE);
   $start = ($page - 1) * $per_page;
-  $end = $start + $per_page;
+  $end = $start + (int) $per_page;
 
   require_once DING_VOXB_PATH . '/lib/VoxbItem.class.php';
   require_once DING_VOXB_PATH . '/lib/VoxbReviews.class.php';
 
-  // Get the reviews
+  // Get the reviews.
   $item = new VoxbItem();
   $item->addReviewHandler('review', new VoxbReviews());
   $item->fetchByFaust($faust_number);
   $reviews = $item->getReviews('review')->toArray();
 
-  // Place the reviews
+  // Place the reviews.
   $html = '';
   for ($i = $start; $i < $end; $i++) {
     if (empty($reviews[$i]['text'])) {
@@ -238,7 +237,7 @@ function ding_voxb_paging_reviews($faust_number = '', $page = 1) {
       'voxb_review_record',
       array(
         'author' => $reviews[$i]['authorName'],
-        'review' => $reviews[$i]['text']
+        'review' => $reviews[$i]['text'],
       )
     );
   }
@@ -248,12 +247,12 @@ function ding_voxb_paging_reviews($faust_number = '', $page = 1) {
 }
 
 /**
- * Implements hook_theme()
+ * Implements hook_theme().
  */
 function ding_voxb_theme($existing, $type, $theme, $path) {
   $hooks['voxb_tag_record'] = array(
     'arguments' => array('data' => NULL),
-    'template' => 'templates/ding_voxb-tag-record'
+    'template' => 'templates/ding_voxb-tag-record',
   );
 
   $hooks['voxb_review_record'] = array(
@@ -268,7 +267,7 @@ function ding_voxb_theme($existing, $type, $theme, $path) {
 
   $hooks['voxb_review_pager_leaf'] = array(
     'arguments' => array('data' => NULL),
-    'template' => 'templates/ding_voxb-pager-leaf'
+    'template' => 'templates/ding_voxb-pager-leaf',
   );
 
   $hooks['voxb_rating'] = array(
