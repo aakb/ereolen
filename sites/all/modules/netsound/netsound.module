@@ -404,7 +404,7 @@ function netsound_contact_elib_form($form_state){
       'netscape' => 'Netscape',
       'anden' => 'Anden',
     ),
-    '#required' => TRUE,
+    '#required' => FALSE,
   );
 
   $form['tablet_model'] = array(
