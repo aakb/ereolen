@@ -363,7 +363,7 @@ function netsound_contact_elib_form($form_state){
   $form['book_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Hvilken titel drejer det sig om?'),
-    '#required' => TRUE,
+    '#required' => FALSE,
   );
 
   $form['error_time'] = array(
@@ -390,8 +390,12 @@ function netsound_contact_elib_form($form_state){
 
   $form['os'] = array(
     '#type' => 'select',
-    '#title' => t('Hvilken browser anvender du?'),
+    '#title' => t('Hvordan tilgår du ereolen?'),
     '#options' => array(
+      'andriod' => 'Android app',
+      'ios' => 'iOS app',
+      'windows' => 'Windows applikation',
+      'mac' => 'Mac applikation',
       'ie11' => 'Internet Explorer 11',
       'ie10' => 'Internet Explorer 10',
       'ie9' => 'Internet Explorer 9',
@@ -409,7 +413,7 @@ function netsound_contact_elib_form($form_state){
 
   $form['tablet_model'] = array(
     '#type' => 'textfield',
-    '#title' => t('Indtast evt. modelnummer'),
+    '#title' => t('Indtast evt. model'),
   );
 
   $form['os_version'] = array(
