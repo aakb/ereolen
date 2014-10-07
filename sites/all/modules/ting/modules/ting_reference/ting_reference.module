@@ -6,26 +6,33 @@
  */
 
 /**
- * Implementation of hook_theme().
+ * Implements hook_theme().
  */
 function ting_reference_theme() {
   return array(
     'ting_reference_formatter_default' => array(
-      'arguments' => array('element' => NULL)
+      'arguments' => array('element' => NULL),
     ),
     'ting_reference_formatter_plain' => array(
-      'arguments' => array('element' => NULL)
+      'arguments' => array('element' => NULL),
+    ),
+    'ting_reference_formatter_object' => array(
+      'arguments' => array('element' => NULL),
+    ),
+    'ting_reference_object' => array(
+      'arguments' => array('object' => NULL),
+      'template' => 'ting_reference_object',
     ),
     'ting_reference_preview' => array(
       'arguments' => array('collection' => NULL),
-      'template' => 'ting_reference_preview'
+      'template' => 'ting_reference_preview',
     ),
   );
 }
 
 
 /**
- * Implementation of hook_menu().
+ * Implements hook_menu().
  */
 function ting_reference_menu() {
   $items = array();
@@ -62,7 +69,7 @@ function ting_reference_menu() {
 }
 
 /**
- * Implementation of hook_field_info().
+ * Implements hook_field_info().
  */
 function ting_reference_field_info() {
   return array(
@@ -74,21 +81,30 @@ function ting_reference_field_info() {
 }
 
 /**
- * Implementation of hook_field_settings().
+ * Implements hook_field_settings().
  */
 function ting_reference_field_settings($op, $field) {
   switch ($op) {
     case 'database columns':
-     return array(
-       'ting_object_id' => array('type' => 'varchar', 'length' => 50, 'index' => TRUE),
-       'ting_ref_type' => array('type' => 'varchar', 'length' => 20),
-       'description' => array('type' => 'text'),
-     );
+      return array(
+        'ting_object_id' => array(
+          'type' => 'varchar',
+          'length' => 50,
+          'index' => TRUE,
+        ),
+        'ting_ref_type' => array(
+          'type' => 'varchar',
+          'length' => 20,
+        ),
+        'description' => array(
+          'type' => 'text',
+        ),
+      );
   }
 }
 
 /**
- * Implementation of hook_field().
+ * Implements hook_field().
  */
 function ting_reference_field($op, &$node, $field, &$items, $teaser, $page) {
   switch ($op) {
@@ -108,7 +124,8 @@ function ting_reference_field($op, &$node, $field, &$items, $teaser, $page) {
               $object = ting_get_object_by_id($ting_object_id);
             }
             catch (TingClientException $e) {
-              // If the specified object id does not exist, an exception is throw.
+              // If the specified object id does not exist, an exception is
+              // throw.
             }
             if (!$object) {
               form_set_error($error_element, t('%name: Object id not found.', array('%name' => t($field['widget']['label']))));
@@ -121,14 +138,14 @@ function ting_reference_field($op, &$node, $field, &$items, $teaser, $page) {
 }
 
 /**
- * Implementation of hook_content_is_empty().
+ * Implements hook_content_is_empty().
  */
 function ting_reference_content_is_empty($item, $field) {
   return (empty($item['ting_object_id']) && empty($item['description']));
 }
 
 /**
- * Implementation of hook_field_formatter_info().
+ * Implements hook_field_formatter_info().
  */
 function ting_reference_field_formatter_info() {
   return array(
@@ -139,6 +156,11 @@ function ting_reference_field_formatter_info() {
     ),
     'plain' => array(
       'label' => t('Plain link and image'),
+      'field types' => array('ting_reference'),
+      'multiple values' => CONTENT_HANDLE_CORE,
+    ),
+    'object' => array(
+      'label' => t('Object with image'),
       'field types' => array('ting_reference'),
       'multiple values' => CONTENT_HANDLE_CORE,
     ),
@@ -180,7 +202,24 @@ function theme_ting_reference_formatter_plain($element) {
 }
 
 /**
- * Implementation of hook_widget_info().
+ * Theme function for "object" ting reference field formatter.
+ */
+function theme_ting_reference_formatter_object($element) {
+  // Don’t render empty fields.
+  if (ting_reference_content_is_empty($element['#item'], array())) {
+    return;
+  }
+
+  $collection = _ting_reference_get_collection($element['#item']['ting_ref_type'], $element['#item']['ting_object_id'], $element['#item']['description']);
+  if (!$collection) {
+    return t('Object not found.');
+  }
+
+  return theme('ting_reference_object', $collection->objects[0]);
+}
+
+/**
+ * Implements hook_widget_info().
  */
 function ting_reference_widget_info() {
   return array(
@@ -196,7 +235,7 @@ function ting_reference_widget_info() {
 }
 
 /**
- * Implementation of hook_widget().
+ * Implements hook_widget().
  */
 function ting_reference_widget(&$form, &$form_state, $field, $items, $delta = 0) {
   _ting_reference_add_css_js();
@@ -210,7 +249,7 @@ function ting_reference_widget(&$form, &$form_state, $field, $items, $delta = 0)
   $ting_object_id = isset($items[$delta]['ting_object_id']) ? $items[$delta]['ting_object_id'] : '';
   $ting_ref_type = !empty($items[$delta]['ting_ref_type']) ? $items[$delta]['ting_ref_type'] : 'collection';
 
-  $element['ting_ref_type'] = array (
+  $element['ting_ref_type'] = array(
     '#type' => 'radios',
     '#title' => t('Reference type'),
     '#default_value' => $ting_ref_type,
@@ -218,27 +257,27 @@ function ting_reference_widget(&$form, &$form_state, $field, $items, $delta = 0)
     '#attributes' => array('class' => 'ting-reference-type-radio clear-block'),
   );
 
-  $element['search'] = array (
+  $element['search'] = array(
     '#type' => 'textfield',
     '#title' => t('Search'),
     '#maxlength' => NULL,
     '#description' => t('Enter a query to search for objects or collections to reference'),
-    '#attributes' => array('class' => 'form-autocomplete ting-reference-autocomplete')
+    '#attributes' => array('class' => 'form-autocomplete ting-reference-autocomplete'),
   );
 
   $collection = _ting_reference_get_collection($ting_ref_type, $ting_object_id);
-  $element['preview'] = array (
+  $element['preview'] = array(
     '#value' => '<div class="ting-reference-preview">' . ($collection ? theme('ting_reference_preview', $collection) : t('Object not found.')) . '</div>',
   );
 
-  $element['ting_object_id'] = array (
+  $element['ting_object_id'] = array(
     '#type' => 'hidden',
     '#title' => 'Ting object id',
     '#default_value' => $ting_object_id,
-    '#attributes' => array('class' => 'ting-object-id')
+    '#attributes' => array('class' => 'ting-object-id'),
   );
 
-  $element['description'] = array (
+  $element['description'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
     '#rows' => 2,
@@ -252,16 +291,17 @@ function ting_reference_widget(&$form, &$form_state, $field, $items, $delta = 0)
  * Add the CSS and JS required by ting_reference_widget().
  */
 function _ting_reference_add_css_js() {
-  static $assetsLoaded;
+  static $assets_loaded;
 
-  if (!isset($assetsLoaded)) {
-    $basePath = drupal_get_path('module', 'ting');
-    //Added modified version of jQuery autocomplete as default plugin uses q parameter
-    drupal_add_js($basePath .'/js/jquery-autocomplete-1.0.2-mod/jquery.autocomplete.min.js', 'module', 'footer', TRUE);
-    drupal_add_css($basePath .'/js/jquery-autocomplete-1.0.2-mod/jquery.autocomplete.css', 'module');
+  if (!isset($assets_loaded)) {
+    $base_path = drupal_get_path('module', 'ting');
+    // Added modified version of jQuery autocomplete as default plugin uses q
+    // parameter.
+    drupal_add_js($base_path . '/js/jquery-autocomplete-1.0.2-mod/jquery.autocomplete.min.js', 'module', 'footer', TRUE);
+    drupal_add_css($base_path . '/js/jquery-autocomplete-1.0.2-mod/jquery.autocomplete.css', 'module');
 
     $path = drupal_get_path('module', 'ting_reference');
-    drupal_add_js($path .'/js/ting_reference.js', 'module', 'footer', TRUE);
+    drupal_add_js($path . '/js/ting_reference.js', 'module', 'footer', TRUE);
     drupal_add_js(array(
       'tingReference' => array(
         'autocomplete' => array(
@@ -271,14 +311,14 @@ function _ting_reference_add_css_js() {
         'previewUrl' => url('ting_reference/preview/js'),
       ),
     ), 'setting', 'footer', TRUE);
-    drupal_add_css($path .'/css/ting_reference.css', 'module');
+    drupal_add_css($path . '/css/ting_reference.css', 'module');
 
-    $assetsLoaded = true;
+    $assets_loaded = TRUE;
   }
 }
 
 /**
- * Implementation of hook_form_alter().
+ * Implements hook_form_alter().
  *
  * This is a workaround for a limition in Drupal's AHAH support. CSS and JS is
  * not added to fields inserted via AHAH but assumes that the parent page
@@ -287,7 +327,9 @@ function _ting_reference_add_css_js() {
 function ting_reference_form_alter(&$form, $form_state, $form_id) {
   if ($form['#id'] == 'node-form') {
     // If node type has no CCK fields, just bail right away.
-    if (!isset($form['#field_info'])) { return; }
+    if (!isset($form['#field_info'])) {
+      return;
+    }
 
     foreach ($form['#field_info'] as $name => $field) {
       if ($field['type'] == 'flexifield') {

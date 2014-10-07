@@ -54,6 +54,32 @@ function ebog_preprocess_ting_object(&$vars) {
 }
 
 /**
+ * Implements hook_preprocess_ting_reference_object().
+ *
+ * Add extra information form elib to the ting object.
+ */
+function ebog_preprocess_ting_reference_object(&$vars) {
+  $isbn = $vars['object']->record['dc:identifier']['oss:PROVIDER-ID'][0];
+
+  // Create the author field.
+  $vars['author'] = publizon_get_authors($vars['object']);
+
+  // Load the product.
+  try {
+    $product = new PublizonProduct($isbn);
+
+    // Get cover image.
+    $vars['cover'] = $product->getCover('120_x');
+
+    // Get description.
+    $vars['description'] = $product->description;
+  }
+  catch (Exception $e) {
+    drupal_set_message($e->getMessage(), 'error');
+  }
+}
+
+/**
  * Implements hook_preprocess_ting_search_collection().
  *
  * Add extra information from elib to the ting objects.

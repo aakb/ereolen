@@ -17,9 +17,9 @@ if (module_exists('ding_voxb')) {
   drupal_add_js(DING_VOXB_PATH . '/js/cyclic.fade.js');
   drupal_add_js(DING_VOXB_PATH . '/js/voxb.item.js');
 
-  require_once(DING_VOXB_PATH . '/lib/VoxbItem.class.php');
-  require_once(DING_VOXB_PATH . '/lib/VoxbProfile.class.php');
-  require_once(DING_VOXB_PATH . '/lib/VoxbReviews.class.php');
+  require_once DING_VOXB_PATH . '/lib/VoxbItem.class.php';
+  require_once DING_VOXB_PATH . '/lib/VoxbProfile.class.php';
+  require_once DING_VOXB_PATH . '/lib/VoxbReviews.class.php';
 
   $faust_number = $object->localId;
   $voxb_item = new VoxbItem();
