@@ -1,6 +1,6 @@
 <?php
 
-require_once(VOXB_PATH . '/lib/VoxbTagRecord.class.php');
+require_once DING_VOXB_PATH . '/lib/VoxbTagRecord.class.php';
 
 /**
  * @file
